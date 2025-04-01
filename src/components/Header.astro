@@ -1,0 +1,33 @@
+---
+import Login from "../assets/icons/login.svg";
+---
+
+<header
+    id="header"
+    class="px-10 transition-transform flex w-full h-20 items-center fixed justify-between bg-gray-100 shadow-md text-white"
+>
+    <a href="" class="pointer font-lilitaone text-4xl text-black">WOODEN LADLE</a>
+    <nav class="pr-5 gap-23 items-center flex">
+        <a class="text-black text-xl font-comfortaa hover:scale-105 transition-transform" href="">Boutique</a>
+        <a class="text-black text-xl font-comfortaa hover:scale-105 transition-transform" href="">À propos</a>
+        <a class="text-black text-xl font-comfortaa hover:scale-105 transition-transform" href="">Des recettes Simples</a>
+        <a class="text-black text-xl font-comfortaa hover:scale-105 transition-transform" href="Bot">WL Bot</a>
+        <a href="/" aria-label="Accueil" class="">
+            <Login class="transition-transform scale-65 hover:scale-70" />
+        </a>
+    </nav>
+</header>
+
+<script>
+    const header = document.querySelector("#header");
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > lastScrollY) {
+            header.style.transform = "translateY(-100%)";
+        } else {
+            header.style.transform = "translateY(0)";
+        }
+        lastScrollY = window.scrollY;
+    });
+</script>

@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&family=Coiny&family=Comfortaa:wght@300..700&family=Lilita+One&family=MonteCarlo&family=Pacifico&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --color-gray-100: #FFFCEF;
+    --color-purple: #8662F5;
+    --color-pink: #EA64A5;
+    --color-red: #D6675D;
+    --color-orange: #F08021;
+    --color-yellow: #EFCF63;
+    --color-green-100: #69CC7E;
+    --color-green: #5ABE6F;
+
+    --font-comfortaa: 'Comfortaa', sans-serif;
+    --font-lilitaone: 'Lilita One', cursive;
+}
