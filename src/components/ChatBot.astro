@@ -1,0 +1,64 @@
+---
+import { useState } from "react";
+---
+
+<div
+    class="w-full max-w-xl mx-auto mt-10 p-4 border rounded-2xl shadow-lg bg-white"
+>
+    <h2 class="text-2xl font-bold mb-4">🤖 Chat avec l'IA</h2>
+    <div
+        id="chat-box"
+        class="h-64 overflow-y-auto border p-2 rounded bg-gray-50 mb-4 text-sm space-y-2"
+    >
+        <div id="messages"></div>
+    </div>
+    <form id="chat-form" class="flex">
+        <input
+            id="user-input"
+            type="text"
+            placeholder="Pose une question..."
+            class="flex-grow px-3 py-2 border rounded-l focus:outline-none"
+            required
+        />
+        <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600"
+        >
+            Envoyer
+        </button>
+    </form>
+</div>
+
+<script type="module">
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("user-input");
+    const messages = document.getElementById("messages");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // ✅ Empêche l'envoi natif
+
+        const userMessage = input.value.trim();
+        if (!userMessage) return;
+
+        appendMessage("👤", userMessage);
+        input.value = "";
+
+        const res = await fetch("/api/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message: userMessage }), // ✅ corps JSON
+        });
+
+        const data = await res.json();
+        appendMessage("🤖", data.reply);
+    });
+
+    function appendMessage(sender, text) {
+        const div = document.createElement("div");
+        div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+    }
+</script>
