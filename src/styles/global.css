@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 @theme {
-    --color-gray-100: #FFFCEF;
+    --color-gray-100: #FFF5C9;
     --color-purple: #8662F5;
     --color-pink: #EA64A5;
     --color-red: #D6675D;
@@ -11,6 +11,7 @@
     --color-yellow: #EFCF63;
     --color-green-100: #69CC7E;
     --color-green: #5ABE6F;
+    --color-bg: #FFFCEC;
 
     --font-montserrat: 'Montserrat', sans-serif;
     --font-lilitaone: 'Lilita One', cursive;

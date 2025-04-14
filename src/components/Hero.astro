@@ -1,0 +1,13 @@
+---
+const { title, image } = Astro.props;
+---
+
+<div class="hero bg-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto text-center">
+        <h1 class="text-[95px] font-lilitaone text-white mb-4">{title}</h1>
+        <img
+            src={image}
+            class="w-full object-cover"
+        />
+    </div>
+</div>
