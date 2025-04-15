@@ -2,7 +2,7 @@
 const {...prod} = Astro.props;
 ---
 
-<div class={`bg-white rounded-3xl w-[350px] mb-4 border-4 text-center pt-10 pb-5 mx-auto ${
+<div class={`bg-white rounded-3xl w-[350px] mb-4 border-4 text-center pt-10 pb-5 mx-auto hover:scale-102 transition ${
     prod.Region === "Amerique Latine"
         ? "border-red"
         : prod.Region === "Afrique Central"
@@ -21,7 +21,7 @@ const {...prod} = Astro.props;
         <div class="p-4">
                 <p class="font-lilitaone text-xl pb-5 mb-2">{prod.Nom}</p>
                 <div class="flex flex-col space-y-3">
-                    <button class={`font-lilitaone uppercase text-lg hover:w-[250px] transition-all duration-300 cursor-pointer mx-auto text-white rounded-xl h-[50px] w-[200px] ${
+                    <button class={`font-lilitaone uppercase  text-lg hover:w-[250px] transition-all duration-300 cursor-pointer mx-auto text-white rounded-xl h-[50px] w-[200px] ${
                     prod.Region === "Amerique Latine"
                         ? "bg-red"
                         : prod.Region === "Afrique Central"

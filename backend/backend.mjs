@@ -16,3 +16,20 @@ export async function allProduitSorted() {
         return [];
     }
 }
+
+export async function ProduitByRegion(region) {
+    try {
+        let record = await pb.collection('Produit').getFullList({
+            filter: `Region = "${region}"`,
+            sort: 'Nom',
+        });
+        record = record.map((prod) => {
+            prod.img = pb.files.getURL(prod, prod.Image);
+            return prod;
+        });
+        return record;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des produits', error);
+        return [];
+    }
+}
