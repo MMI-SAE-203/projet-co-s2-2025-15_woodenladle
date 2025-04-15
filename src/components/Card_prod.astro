@@ -2,10 +2,55 @@
 const {...prod} = Astro.props;
 ---
 
-<div class="bg-white shadow-md rounded-lg overflow-hidden mb-4">
-    <img src={prod.image} alt={prod.title} class="w-full h-48 object-cover" />
-    <div class="p-4">
-        <h2 class="text-xl font-bold mb-2">{prod.title}</h2>
-        <p class="text-gray-700 mb-4">{prod.description}</p>
-        <a href={prod.link} class="text-blue-500 hover:underline">Learn more</a>
-    </div>
+<div class={`bg-white rounded-3xl w-[350px] mb-4 border-4 text-center pt-10 pb-5 mx-auto ${
+    prod.Region === "Amerique Latine"
+        ? "border-red"
+        : prod.Region === "Afrique Central"
+        ? "border-orange"
+        : prod.Region === "Afrique du Nord"
+        ? "border-yellow"
+        : prod.Region === "Orient"
+        ? "border-green"
+        : prod.Region === "Europe"
+        ? "border-purple"
+        : prod.Region === "Asie"
+        ? "border-pink"
+        : "border-gray-500"
+}`}>
+        <img src={prod.img} alt={prod.Nom} class="pb-10 h-48 mx-auto" />
+        <div class="p-4">
+                <p class="font-lilitaone text-xl pb-5 mb-2">{prod.Nom}</p>
+                <div class="flex flex-col space-y-3">
+                    <button class={`font-lilitaone uppercase text-lg hover:w-[250px] transition-all duration-300 cursor-pointer mx-auto text-white rounded-xl h-[50px] w-[200px] ${
+                    prod.Region === "Amerique Latine"
+                        ? "bg-red"
+                        : prod.Region === "Afrique Central"
+                        ? "bg-orange"
+                        : prod.Region === "Afrique du Nord"
+                        ? "bg-yellow"
+                        : prod.Region === "Orient"
+                        ? "bg-green"
+                        : prod.Region === "Europe"
+                        ? "bg-purple"
+                        : prod.Region === "Asie"
+                        ? "bg-pink"
+                        : "bg-gray-500"
+                    }`}>Ou en trouver ?</button>
+                    <button class={`font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 h-[50px] w-[200px] ${
+                        prod.Region === "Amerique Latine"
+                            ? "border-red text-red"
+                            : prod.Region === "Afrique Central"
+                            ? "border-orange text-orange"
+                            : prod.Region === "Afrique du Nord"
+                            ? "border-yellow text-yellow"
+                            : prod.Region === "Orient"
+                            ? "border-green text-green"
+                            : prod.Region === "Europe"
+                            ? "border-purple text-purple"
+                            : prod.Region === "Asie"
+                            ? "border-pink text-pink"
+                            : "border-gray-500 text-gray-500"
+                        }`}>Plus d'infos</button>
+                </div>
+        </div>
+</div>
