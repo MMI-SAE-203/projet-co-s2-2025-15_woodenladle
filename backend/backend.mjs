@@ -17,6 +17,22 @@ export async function allProduitSorted() {
     }
 }
 
+export async function allRecettesSorted() {
+    try {
+        let record = await pb.collection('Recettes').getFullList({
+            sort: 'Nom',
+        });
+        record = record.map((rec) => {
+            rec.img = pb.files.getURL(rec, rec.Image);
+            return rec;
+        });
+        return record;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des recettes', error);
+        return [];
+    }
+}
+
 export async function ProduitById(id) {
     try {
         let record = await pb.collection('Produit').getOne(id);

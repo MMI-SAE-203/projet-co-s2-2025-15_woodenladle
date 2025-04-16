@@ -1,13 +1,29 @@
 ---
 const { title, image } = Astro.props;
+import Arrow from "../assets/icons/arrow.svg";
 ---
 
-<div class="hero bg-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+<div class="">
     <div class="container mx-auto text-center">
-        <h1 class="text-[95px] font-lilitaone text-white mb-4">{title}</h1>
+        <h1 class="absolute z-5 top-1/2 text-[75px] w-250 uppercase text-start [-webkit-text-stroke:1px_black] font-lilitaone text-white mb-4 leading-20">{title}</h1>
         <img
             src={image}
-            class="w-full object-cover"
+            class="w-full absolute top-0 left-0 h-full object-cover object-center"
         />
+        <Arrow id="scroll-down-arrow" class="absolute z-5 top-8/10 left-1/2 cursor-pointer hover:translate-y-3 transition" />
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollArrow = document.getElementById('scroll-down-arrow');
+        if (scrollArrow) {
+            scrollArrow.addEventListener('click', function() {
+                window.scrollBy({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+</script>
