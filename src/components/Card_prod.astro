@@ -21,7 +21,7 @@ const {...prod} = Astro.props;
         <div class="p-4">
                 <p class="font-lilitaone text-xl pb-5 mb-2">{prod.Nom}</p>
                 <div class="flex flex-col space-y-3">
-                    <button class={`font-lilitaone uppercase  text-lg hover:w-[250px] transition-all duration-300 cursor-pointer mx-auto text-white rounded-xl h-[50px] w-[200px] ${
+                    <a class={`font-lilitaone uppercase  text-lg hover:w-[250px] transition-all duration-300 cursor-pointer flex justify-center items-center mx-auto text-white rounded-xl h-[50px] w-[200px] ${
                     prod.Region === "Amerique Latine"
                         ? "bg-red"
                         : prod.Region === "Afrique Central"
@@ -35,8 +35,8 @@ const {...prod} = Astro.props;
                         : prod.Region === "Asie"
                         ? "bg-pink"
                         : "bg-gray-500"
-                    }`}>Ou en trouver ?</button>
-                    <button class={`font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 h-[50px] w-[200px] ${
+                    }`}>Ou en trouver ?</a>
+                    <a href={`/produits/${prod.id}`} class={`font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px] ${
                         prod.Region === "Amerique Latine"
                             ? "border-red text-red"
                             : prod.Region === "Afrique Central"
@@ -50,7 +50,7 @@ const {...prod} = Astro.props;
                             : prod.Region === "Asie"
                             ? "border-pink text-pink"
                             : "border-gray-500 text-gray-500"
-                        }`}>Plus d'infos</button>
+                        }`}>Plus d'infos</a>
                 </div>
         </div>
 </div>

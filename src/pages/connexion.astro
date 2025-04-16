@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+import { Userauth } from "../../backend/backend.mjs"
+
+if(Astro.request.method === "POST"){
+    const data = await Astro.request.formData()
+    const Login = data.get("Login")
+    const password = data.get("password")
+
+    const user = await Userauth(Login, password)
+
+    if(user){
+        return Astro.redirect("/")
+    }else{
+        return Astro.redirect("/connexion")
+    }
+}
+---
+
+<Layout>
+    <div class="bg-gray-100 w-full h-[200px] rounded-b-2xl flex justify-center items-center border-b-2 border-black">
+        <h1 class="uppercase pt-20 text-white font-lilitaone text-5xl [-webkit-text-stroke:1.5px_black]">se connecter</h1>
+    </div>
+    <div class="mb-20">
+        <form id="login-form" method="post" class="flex flex-col items-center mt-20 space-y-10" enctype="application/x-www-form-urlencoded">
+            <input type="text" name="Login" placeholder="Nom d'utilisateur" class="border-2 border-black rounded-lg h-12 w-70 bg-white pl-3" id="username" />
+            <div class="relative w-70">
+                <input type="password" placeholder="Mot de passe" class="border-2 border-black rounded-lg h-12 w-full bg-white pl-3 pr-10" id="password" />
+                <button type="button" name="password" class="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-black" id="toggle-password">
+                    👁️
+                </button>
+            </div>
+            <button class="bg-gray-100 text-white rounded-full border-2 border-black px-10 py-1.5 font-lilitaone text-lg hover:bg-green transition-all hover:border-b-3 hover:border-l-3 hover:border-green-700 focus:bg-green focus:border-none [-webkit-text-stroke:0.5px_black]">Se connecter</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const togglePasswordButton = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('password');
+
+            togglePasswordButton.addEventListener('click', () => {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                } else {
+                    passwordInput.type = 'password';
+                }
+            });
+        });
+    </script>
+</Layout>

@@ -1,0 +1,90 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {
+    ProduitById,
+    allProduitSorted,
+    FournisseurById,
+} from "../../../backend/backend.mjs";
+
+import Button from "../../components/Button.astro";
+import Button2 from "../../components/Button_vide.astro";
+
+// Cette fonction est obligatoire pour les routes dynamiques
+export async function getStaticPaths() {
+    const allProduits = await allProduitSorted();
+
+    return allProduits.map((produit) => ({
+        params: { id: produit.id.toString() },
+        props: { produit },
+    }));
+}
+
+const { id } = Astro.params;
+const prod = await ProduitById(id);
+const fournisseurs = prod
+    ? await Promise.all(prod.Fournisseur.map((id) => FournisseurById(id)))
+    : [];
+
+if (!prod) {
+    return Astro.redirect("/404");
+}
+
+console.log("ID du produit:", id);
+console.log("Produit trouvé:", prod);
+console.log("ID du fournisseur:", prod.Fournisseurs);
+---
+
+<Layout titre={prod.Nom}>
+    <div class="mt-60 space-y-20">
+        <div class="flex mr-15">
+            <img src={prod.img} alt={prod.Nom} class="h-48 scale-150 mx-auto" />
+            <div class="space-y-8 mx-10">
+                <h1 class="font-lilitaone text-4xl text-center">{prod.Nom}</h1>
+                <div class="font-montserrat text-lg w-[800px]" set:html={prod.Description}></div>
+                  
+            </div>
+        </div>
+        <div class="mb-20">
+            <h2 class="text-center mt-30 font-lilitaone uppercase text-4xl">
+                où le trouver ?
+            </h2>
+            <div
+                class={`grid gap-10 mt-15 ${
+                    fournisseurs.length >= 3
+                        ? "grid-cols-3"
+                        : fournisseurs.length === 2
+                          ? "grid-cols-2"
+                          : "grid-cols-1"
+                }`}
+            >
+                {
+                    fournisseurs.length > 0 ? (
+                        fournisseurs.map((f) => (
+                            <div class="text-center space-y-7">
+                                <p class="text-3xl font-lilitaone text-black text-center">
+                                    {f.Nom}
+                                </p>
+                                <Button
+                                    text="Accèder au site"
+                                    link={f.Site}
+                                    {...prod}
+                                />
+                            </div>
+                        ))
+                    ) : (
+                        <p class="text-xl font-montserrat text-black col-span-full text-center">
+                            Aucun fournisseur
+                        </p>
+                    )
+                }
+            </div>
+            <div class="flex justify-center mt-10">
+                <Button2 
+                    text="Retour aux produits"
+                    link=javascript:history.back()
+                    {...prod}
+                >
+            </div>
+        </div>
+    </div>
+</Layout>

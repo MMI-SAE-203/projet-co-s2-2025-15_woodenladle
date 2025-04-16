@@ -4,7 +4,7 @@ import Login from "../assets/icons/login.svg";
 
 <header
     id="header"
-    class="px-10 absolute top-0 transition-transform flex w-full h-20 items-center justify-between bg-gray-100 shadow-md text-white"
+    class="px-10 fixed top-0 transition-transform flex w-full h-20 items-center justify-between bg-gray-100 shadow-md text-white z-10"
 >
     <a href="/" class="pointer font-lilitaone text-4xl text-black">WOODEN LADLE</a>
     <nav class="pr-5 gap-23 items-center flex">
@@ -20,22 +20,23 @@ import Login from "../assets/icons/login.svg";
         <a class="text-black text-xl font-montserrat hover:scale-105 transition-transform" href="">À propos</a>
         <a class="text-black text-xl font-montserrat hover:scale-105 transition-transform" href="">Les recettes</a>
         <a class="text-black text-xl font-montserrat hover:scale-105 transition-transform" href="ia-textuelle">WL Bot</a>
-        <a href="/" class="">
-            
+        <a href="/connexion" class="">
             <Login class="transition-transform scale-65 hover:scale-70" />
         </a>
     </nav>
 </header>
 
 <script>
-    const header = document.querySelector("#header");
     let lastScrollY = window.scrollY;
+    const header = document.getElementById('header');
 
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
         if (window.scrollY > lastScrollY) {
-            header.style.transform = "translateY(-100%)";
+            // Scroll vers le bas
+            header.style.transform = 'translateY(-100%)';
         } else {
-            header.style.transform = "translateY(0)";
+            // Scroll vers le haut
+            header.style.transform = 'translateY(0)';
         }
         lastScrollY = window.scrollY;
     });

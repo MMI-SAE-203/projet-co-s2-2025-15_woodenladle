@@ -1,0 +1,23 @@
+---
+const { text, link } = Astro.props;
+const { ...prod } = Astro.props;
+---
+
+<a
+    href={link}
+    class={`font-lilitaone uppercase  text-lg hover:w-[250px] transition-all duration-300 cursor-pointer flex justify-center items-center mx-auto text-white rounded-xl h-[50px] w-[200px] ${
+        prod.Region === "Amerique Latine"
+            ? "bg-red"
+            : prod.Region === "Afrique Central"
+              ? "bg-orange"
+              : prod.Region === "Afrique du Nord"
+                ? "bg-yellow"
+                : prod.Region === "Orient"
+                  ? "bg-green"
+                  : prod.Region === "Europe"
+                    ? "bg-purple"
+                    : prod.Region === "Asie"
+                      ? "bg-pink"
+                      : "bg-gray-500"
+    }`}>{text}</a
+>

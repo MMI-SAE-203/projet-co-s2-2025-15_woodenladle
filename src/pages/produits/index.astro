@@ -2,6 +2,8 @@
 //@ts-nocheck
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card_prod.astro";
+import Hero from "../../components/Hero.astro";
+import img from "../../assets/img/produits.webp";
 
 import { allProduitSorted,ProduitByRegion } from "../../../backend/backend.mjs";
 
@@ -14,6 +16,7 @@ if (Astro.request.method == "GET") {
     console.log(regions);
 } else if (Astro.request.method == "POST") {
     const data = await Astro.request.formData();
+    
     const region = data.get("Region");
     if (region !== "Tout") {
         const response = await ProduitByRegion(region);
@@ -26,6 +29,7 @@ if (Astro.request.method == "GET") {
 ---
 
 <Layout>
+    <Hero title="Nos Produits" image={img.src} />
     <div class="space-y-10">
         <div class="mt-40 space-y-3 text-center">
             <h2 class="text-5xl font-lilitaone text-white [-webkit-text-stroke:1.5px_black] uppercase">Nos Produits</h2>
@@ -41,7 +45,7 @@ if (Astro.request.method == "GET") {
             </select>
             <input type="submit" value="Filtrer" class="bg-blue-500 text-white font-bold py-2 px-4 rounded" />
         </form>
-        <div class="grid grid-cols-3 justify-center">
+        <div class="grid grid-cols-3 justify-center mb-20">
             {prod.map((prod) => <Card {...prod} />)}
         </div>
     </div>

@@ -17,6 +17,28 @@ export async function allProduitSorted() {
     }
 }
 
+export async function ProduitById(id) {
+    try {
+        let record = await pb.collection('Produit').getOne(id);
+        record.img = pb.files.getURL(record, record.Image);
+        return record;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant le produit', error);
+        return null;
+    }
+}
+
+export async function FournisseurById(id) {
+    try {
+        let record = await pb.collection('Fournisseurs').getOne(id);
+        record.img = pb.files.getURL(record, record.Image);
+        return record;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant le fournisseur', error);
+        return null;
+    }
+}
+
 export async function ProduitByRegion(region) {
     try {
         let record = await pb.collection('Produit').getFullList({
@@ -32,4 +54,13 @@ export async function ProduitByRegion(region) {
         console.log('Une erreur est survenue en lisant la liste des produits', error);
         return [];
     }
+}
+
+export async function addNewUser(newUser) {
+    await pb.collection('users').create(newUser);
+}
+
+export async function Userauth(login, mdp) {
+    await pb.collection("users").authWithPassword(login, mdp);
+    console.log(pb.authStore.isValid);
 }
