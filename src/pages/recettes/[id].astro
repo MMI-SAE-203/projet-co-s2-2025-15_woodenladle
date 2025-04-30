@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import { allRecettesSorted } from "../../../backend/backend.mjs";
+
+export async function getStaticPaths() {
+    const allProduits = await allRecettesSorted();
+
+    return allProduits.map((produit) => ({
+        params: { id: produit.id.toString() },
+        props: { produit },
+    }));
+}
+---
+
+<Layout>
+    <div>
+        <div>
+            <p>Etape 1</p>
+            <p>{etape.Etape_1}</p>
+        </div>
+        <div>
+            <p>Etape 2</p>
+            <p>{etape.Etape_2}</p>
+        </div>
+        <div>
+            <p>Etape 3</p>
+            <p>{etape.Etape_3}</p>
+        </div>
+        <div>
+            <p>Etape 4</p>
+            <!-- mais si il n'y a pas d'étape 4, il y aura quand meme écris "Etape 4" sur le site mais avec rien dedans, il faudrait que je fasse du js ? -->
+            <p>{etape.Etape_4}</p>
+        </div>
+    </div>
+</Layout>

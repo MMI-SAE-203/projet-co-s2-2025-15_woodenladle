@@ -1,5 +1,36 @@
 ---
-const {...recette} = Astro.props;
+const {...rec} = Astro.props;
+import ButtonVide from "../components/Button_vide.astro";
 ---
 
-<div class=""></div>
+<div class={`bg-gray-100 w-8/10 flex mx-auto border-4 rounded-[20px] ${
+    rec.Region === "Amerique Latine"
+        ? "border-red"
+        : rec.Region === "Afrique Central"
+        ? "border-orange"
+        : rec.Region === "Afrique du Nord"
+        ? "border-yellow"
+        : rec.Region === "Orient"
+        ? "border-green"
+        : rec.Region === "Europe"
+        ? "border-purple"
+        : rec.Region === "Asie du Sud Est"
+        ? "border-pink"
+        : "border-gray-500"
+}`}>
+    <img src={rec.img} alt={rec.Nom} class="w-75" />
+    <div class="space-y-8 p-4 pl-6">
+        <p class="font-lilitaone text-2xl">Couscous aux légumes</p>
+        <div class="space-y-4 w-6/10">
+            <p class="font-montserrat text-[15px]"><span class="font-bold">Description : </span> {rec.Region}</p>
+            <p class="font-montserrat text-[15px]"><span class="font-bold">Description : </span> {rec.Description}</p>
+        </div>
+        <div class="absolute left-7/10">
+            <ButtonVide 
+                text="Retour aux produits"
+                link={`/recettes/${rec.id}`}
+                {...rec}
+                >
+        </div>
+    </div>
+</div>

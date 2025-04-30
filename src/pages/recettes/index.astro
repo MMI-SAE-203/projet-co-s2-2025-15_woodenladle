@@ -1,15 +1,26 @@
 ---
 import Layout from "../../layouts/Layout.astro"
+import Card from "../../components/Card_recettes.astro";
 import Hero from "../../components/Hero.astro";
 import img from "../../assets/img/recettes.webp";
+
+import { allRecettesSorted } from "../../../backend/backend.mjs";
+
+const rec = await allRecettesSorted();
+
+
 ---
 
 <Layout>
     <Hero title="Les recettes du monde" image={img.src} />
-    <div class="mt-225 flex justify-center">
-        <p class="font-montserrat text-xl w-6/10">
-            Trouvez ici des <span class="font-bold">recettes faciles et authentiques</span> pour cuisiner avec vos <span class="font-bold">produits préférés</span>. Que ce soit un plat de chez vous ou une nouvelle découverte !
-        </p>
+    <div class="mb-20 space-y-20">
+        <div class="mt-225 flex justify-center">
+            <p class="font-montserrat text-xl w-6/10">
+                Trouvez ici des <span class="font-bold">recettes faciles et authentiques</span> pour cuisiner avec vos <span class="font-bold">produits préférés</span>. Que ce soit un plat de chez vous ou une nouvelle découverte !
+            </p>
+        </div>
+        <div class="flex flex-col justify-center space-y-15">
+            {rec.map((rec) => <Card {...rec} />)}
+        </div>
     </div>
-    
 </Layout>

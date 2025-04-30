@@ -1,5 +1,7 @@
 ---
 const {...prod} = Astro.props;
+import Button from "../components/Button.astro";
+import Button2 from "../components/Button_vide.astro";
 ---
 
 <div class={`bg-white rounded-3xl w-[350px] mb-4 border-4 text-center pt-10 pb-5 mx-auto hover:scale-102 transition ${
@@ -13,7 +15,7 @@ const {...prod} = Astro.props;
         ? "border-green"
         : prod.Region === "Europe"
         ? "border-purple"
-        : prod.Region === "Asie"
+        : prod.Region === "Asie du Sud Est"
         ? "border-pink"
         : "border-gray-500"
 }`}>
@@ -21,36 +23,16 @@ const {...prod} = Astro.props;
         <div class="p-4">
                 <p class="font-lilitaone text-xl pb-5 mb-2">{prod.Nom}</p>
                 <div class="flex flex-col space-y-3">
-                    <a class={`font-lilitaone uppercase  text-lg hover:w-[250px] transition-all duration-300 cursor-pointer flex justify-center items-center mx-auto text-white rounded-xl h-[50px] w-[200px] ${
-                    prod.Region === "Amerique Latine"
-                        ? "bg-red"
-                        : prod.Region === "Afrique Central"
-                        ? "bg-orange"
-                        : prod.Region === "Afrique du Nord"
-                        ? "bg-yellow"
-                        : prod.Region === "Orient"
-                        ? "bg-green"
-                        : prod.Region === "Europe"
-                        ? "bg-purple"
-                        : prod.Region === "Asie"
-                        ? "bg-pink"
-                        : "bg-gray-500"
-                    }`}>Ou en trouver ?</a>
-                    <a href={`/produits/${prod.id}`} class={`font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px] ${
-                        prod.Region === "Amerique Latine"
-                            ? "border-red text-red"
-                            : prod.Region === "Afrique Central"
-                            ? "border-orange text-orange"
-                            : prod.Region === "Afrique du Nord"
-                            ? "border-yellow text-yellow"
-                            : prod.Region === "Orient"
-                            ? "border-green text-green"
-                            : prod.Region === "Europe"
-                            ? "border-purple text-purple"
-                            : prod.Region === "Asie"
-                            ? "border-pink text-pink"
-                            : "border-gray-500 text-gray-500"
-                        }`}>Plus d'infos</a>
+                    <Button 
+                        text="Où en trouver ? ⛓️‍💥"
+                        link={prod.Site}
+                        {...prod}
+                    />
+                    <Button2 
+                        text="Plus d'infos"
+                        link={`/produits/${prod.id}`}
+                        {...prod}
+                    >
                 </div>
         </div>
 </div>
