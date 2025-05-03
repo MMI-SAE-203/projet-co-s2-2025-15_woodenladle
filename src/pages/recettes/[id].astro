@@ -19,12 +19,10 @@ const { id } = Astro.params;
 const rec = await getOneRecette(id);
 const rawEtapes = await allEtapeByRecette(id);
 
-// Récupère le premier (et normalement seul) objet
 const etapes = rawEtapes[0];
 
-// Filtre uniquement les clés de type "Etape_X"
 const listeEtapes = Object.entries(etapes)
-    .filter(([key, val]) => key.startsWith("Etape_") && val) // garde uniquement les étapes non nulles
+    .filter(([key, val]) => key.startsWith("Etape_") && val)
     .sort(([a], [b]) => {
         const numA = parseInt(a.split("_")[1], 10);
         const numB = parseInt(b.split("_")[1], 10);
@@ -42,7 +40,7 @@ if (!rec) {
             <img
                 src={rec.img}
                 alt={rec.Nom}
-                class=`h-48 scale-150 mx-auto border-3 rounded-lg ${
+                class=`h-48 scale-200 mx-auto border-3 rounded-lg ${
                 rec.Region === "Amerique Latine"
                     ? "border-red"
                     : rec.Region === "Afrique Central"
@@ -70,13 +68,13 @@ if (!rec) {
                     </p>
                 </div>
                 <div
-                    class="font-montserrat text-lg"
+                    class="font-montserrat text-xl"
                     set:html={rec.Description}
                 />
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-10 w-8/10">
-            <div class="w-8/10 ml-0 bg-gray-100 border-t-3 border-b-3 border-r-3 rounded-r-[30px] h-auto">
+        <div class="grid grid-cols-2 pt-20 gap-30 w-8/10">
+            <div class="w-8/10 bg-gray-100 border-t-3 border-b-3 border-r-3 rounded-r-[30px] h-auto">
                 <div class="flex flex-col justify-center items-center">
                     <h2 class="text-center mt-15 font-lilitaone uppercase text-4xl">
                         Ingrédients
@@ -85,7 +83,7 @@ if (!rec) {
                         (Pour {rec.nbr_personne} personnes)
                     </p>
                     <div
-                        class="font-montserrat text-lg"
+                        class="font-montserrat capitalize space-y-5 text-lg"
                         set:html={rec.ingredients}
                     />
                 </div>

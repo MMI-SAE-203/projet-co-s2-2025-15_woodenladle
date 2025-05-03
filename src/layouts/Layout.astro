@@ -15,7 +15,9 @@ import "../styles/global.css";
 	</head>
 	<body class="bg-bg">
 		<Header />
-		<slot />
+		<main class="flex-grow overflow-hidden">
+			<slot />
+		</main>
 		<Footer />
 	</body>
 </html>

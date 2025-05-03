@@ -1,52 +1,73 @@
 ---
-//@ts-nocheck
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card_prod.astro";
 import Hero from "../../components/Hero.astro";
 import img from "../../assets/img/produits.webp";
 
-import { allProduitSorted,ProduitByRegion } from "../../../backend/backend.mjs";
+import {
+    allProduitSorted,
+    ProduitByRegion,
+} from "../../../backend/backend.mjs";
 
-const prod = await allProduitSorted();
 let produit = [];
-let regions = ["Tout", "Amérique Latine", "Afrique Central", "Afrique du Nord", "Orient", "Europe", "Asie"];
+let regions = [
+    "Tout",
+    "Amérique Latine",
+    "Afrique Central",
+    "Afrique du Nord",
+    "Orient",
+    "Europe",
+    "Asie",
+];
 
-if (Astro.request.method == "GET") {
+const url = new URL(Astro.request.url);
+const rawRegion = url.searchParams.get("Region");
+const selectedRegion = rawRegion ? decodeURIComponent(rawRegion) : null;
+console.log("SelectedRegion :", selectedRegion);
+
+
+if (selectedRegion && selectedRegion !== "Tout") {
+    produit = await ProduitByRegion(selectedRegion);
+    regions = [selectedRegion, ...regions.filter((r) => r !== selectedRegion)];
+} else {
     produit = await allProduitSorted();
-    console.log(regions);
-} else if (Astro.request.method == "POST") {
-    const data = await Astro.request.formData();
-    
-    const region = data.get("Region");
-    if (region !== "Tout") {
-        const response = await ProduitByRegion(region);
-        produit = response;
-        regions = [region, ...regions.filter((r) => r !== region)];
-    } else {
-        produit = await allProduitSorted();
-    }
 }
 ---
-
 <Layout>
-    <Hero title="nos produits du monde, sélectionnés pour vous !" image={img.src} />
-    <div class="space-y-10">
-        <div class="mt-250 space-y-3 text-center">
-            <h2 class="text-5xl font-lilitaone text-white [-webkit-text-stroke:1.5px_black] uppercase">Nos Produits</h2>
+    <Hero
+        title="nos produits du monde, sélectionnés pour vous !"
+        image={img.src}
+    />
+    <div class="mt-250 space-y-10">
+        <div class="space-y-3 text-center">
+            <h2
+                class="text-5xl font-lilitaone text-white [-webkit-text-stroke:1.5px_black] uppercase"
+            >
+                Nos Produits
+            </h2>
             <p class="font-montserrat text-xl">Pour les fans de gourmandises</p>
         </div>
-        <form method="POST">
-            <select name="Region">
+        <form method="GET">
+            <select name="Region" class="cursor-pointer">
                 {
                     regions.map((region) => (
-                        <option value={region}>{region}</option>
+                        <option
+                            value={region}
+                            selected={region === selectedRegion}
+                        >
+                            {region}
+                        </option>
                     ))
                 }
             </select>
-            <input type="submit" value="Filtrer" class="bg-blue-500 text-white font-bold py-2 px-4 rounded" />
+            <input
+                type="submit"
+                value="Filtrer"
+                class="bg-blue-500 cursor-pointer text-white font-bold py-2 px-4 rounded"
+            />
         </form>
         <div class="grid grid-cols-3 justify-center mb-20">
-            {prod.map((prod) => <Card {...prod} />)}
+            {produit.map((prod) => <Card {...prod} />)}
         </div>
     </div>
 </Layout>

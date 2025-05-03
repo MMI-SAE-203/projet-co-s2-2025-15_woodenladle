@@ -58,7 +58,7 @@ export async function FournisseurById(id) {
 export async function ProduitByRegion(region) {
     try {
         let record = await pb.collection('Produit').getFullList({
-            filter: `Region = "${region}"`,
+            filter: `Region = '${region}'`,
             sort: 'Nom',
         });
         record = record.map((prod) => {
