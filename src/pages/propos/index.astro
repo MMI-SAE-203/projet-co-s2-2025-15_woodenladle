@@ -1,0 +1,21 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Hero from "../../components/Hero.astro"
+import img from "../../assets/img/propos.webp";
+import ButtonVide from "../../components/Button_vide.astro";
+---
+
+<Layout>
+    <Hero title="qui sommes nous ?" image={img.src} />
+    <div class="relative mt-250 mb-20 space-y-20">
+        <div class="flex justify-center">
+            <p class="font-montserrat text-xl w-6/10">
+                Chez <span class="font-bold">Wooden Ladle</span>, notre mission est de vous ramener chez vous les saveurs et les produits locaux de votre pays d'origine ou de vous faire découvrir ceux d'ailleurs. Fondée par trois associés passionnés de culture et de gastronomie, notre boutique en ligne récemment lancée se spécialise dans <span class="font-bold">la sélection</span> et <span class="font-bold">la distribution</span> de <span class="font-bold">produits locaux authentiques</span>  provenant de <span class="font-bold">six régions du monde</span> :
+            </p>
+        </div>
+        <ButtonVide 
+            text="Retour à l'accueil"
+            link="/"
+            class="absolute left-7/10"
+        />
+</Layout>

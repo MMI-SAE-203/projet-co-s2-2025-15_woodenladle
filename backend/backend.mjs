@@ -92,15 +92,9 @@ export async function getOneRecette(id) {
     }
 }
 
-export async function allEtapeByRecette(recette) {
-    try {
-        let record = await pb.collection('Etapes').getFullList({
-            filter: `recette = '${recette}'`,
-            sort: 'Ordre',
-        });
-        return record;
-    } catch (error) {
-        console.log('Une erreur est survenue en lisant la liste des étapes', error);
-        return [];
-    }
+export async function allEtapeByRecette(id) {
+    let record = await pb.collection('Etapes').getFullList({
+        filter: `recette.id = '${id}'`,
+    });
+    return record;
 }
