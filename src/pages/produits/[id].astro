@@ -9,10 +9,8 @@ import {
 import Button from "../../components/Button.astro";
 import Button2 from "../../components/Button_vide.astro";
 
-// Cette fonction est obligatoire pour les routes dynamiques
 export async function getStaticPaths() {
     const allProduits = await allProduitSorted();
-
     return allProduits.map((produit) => ({
         params: { id: produit.id.toString() },
         props: { produit },
@@ -22,7 +20,7 @@ export async function getStaticPaths() {
 const { id } = Astro.params;
 const prod = await ProduitById(id);
 const fournisseurs = prod
-    ? await Promise.all(prod.Fournisseur.map((id) => FournisseurById(id)))
+    ? await Promise.all(prod.Fournisseur.map((id: string) => FournisseurById(id)))
     : [];
 
 if (!prod) {
@@ -40,8 +38,10 @@ console.log("ID du fournisseur:", prod.Fournisseurs);
             <img src={prod.img} alt={prod.Nom} class="h-48 scale-150 mx-auto" />
             <div class="space-y-8 mx-10">
                 <h1 class="font-lilitaone text-4xl text-center">{prod.Nom}</h1>
-                <div class="font-montserrat text-lg w-[800px]" set:html={prod.Description}></div>
-                  
+                <div
+                    class="font-montserrat text-lg w-[800px]"
+                    set:html={prod.Description}
+                />
             </div>
         </div>
         <div class="mb-20">
@@ -79,11 +79,11 @@ console.log("ID du fournisseur:", prod.Fournisseurs);
                 }
             </div>
             <div class="flex justify-center mt-10">
-                <Button2 
+                <Button2
                     text="Retour aux produits"
-                    link=javascript:history.back()
+                    link="javascript:history.back()"
                     {...prod}
-                >
+                />
             </div>
         </div>
     </div>

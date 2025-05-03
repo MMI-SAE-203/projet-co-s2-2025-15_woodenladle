@@ -80,3 +80,27 @@ export async function Userauth(login, mdp) {
     await pb.collection("users").authWithPassword(login, mdp);
     console.log(pb.authStore.isValid);
 }
+
+export async function getOneRecette(id) {
+    try {
+        let record = await pb.collection('Recettes').getOne(id);
+        record.img = pb.files.getURL(record, record.Image);
+        return record;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la recette', error);
+        return null;
+    }
+}
+
+export async function allEtapeByRecette(recette) {
+    try {
+        let record = await pb.collection('Etapes').getFullList({
+            filter: `recette = '${recette}'`,
+            sort: 'Ordre',
+        });
+        return record;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des étapes', error);
+        return [];
+    }
+}
