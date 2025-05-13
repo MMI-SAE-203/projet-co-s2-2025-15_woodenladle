@@ -12,7 +12,7 @@ let messages = [
 
 function addMessageToChat(content, role) {
     const messageElement = document.createElement("div");
-    messageElement.className = `message ${role} my-2 p-3 rounded-lg ${role === "user" ? "bg-blue-100 ml-12" : "bg-green-100 mr-12"
+    messageElement.className = `message ${role} my-2 p-3 font-montserrat rounded-xl ${role === "user" ? "bg-white ml-12 border-2 border-red" : "bg-white border-2 border-green mr-12"
         }`;
     messageElement.textContent = content;
     chatContainer.appendChild(messageElement);
