@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Chat IA - Gemma 4B">
+  <main class="max-w-4xl mx-auto p-4">
+    <h1 class="text-3xl font-bold text-center my-6">Chat IA - Gemma 4B</h1>
+
+    <div id="chatContainer" class="bg-gray-100 rounded p-4 h-96 overflow-y-auto mb-4">
+      <div class="text-center text-gray-500">Conversation en attente...</div>
+    </div>
+
+    <div class="flex gap-2">
+      <input id="userInput" type="text" class="flex-grow border rounded px-4 py-2" placeholder="Posez votre question..." />
+      <button id="sendButton" class="bg-blue-600 text-white px-4 py-2 rounded">Envoyer</button>
+    </div>
+
+    <div id="statusIndicator" class="text-center mt-2 text-sm text-gray-500"></div>
+  </main>
+
+  <script src="/scripts/chat-gemma.js" type="module"></script>
+</Layout>
