@@ -22,7 +22,8 @@ export const POST: APIRoute = async ({ request }) => {
                 user: {
                     id: authData.record.id,
                     avatar: authData.record.avatar,
-                    email: authData.record.email
+                    email: authData.record.email,
+                    pseudo: authData.record.pseudo,
                 }
             }),
             { status: 200 }
