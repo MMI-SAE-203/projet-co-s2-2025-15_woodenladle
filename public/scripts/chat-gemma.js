@@ -1,4 +1,4 @@
-const HF_TOKEN = "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"; // ⚠️ Remplace par ton token Hugging Face
+const HF_TOKEN = "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";
 const API_URL = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta";
 
 const chatContainer = document.getElementById("chatContainer");
@@ -23,7 +23,16 @@ function addMessageToChat(content, role) {
 async function sendMessage(userMessage) {
     userInput.disabled = true;
     sendButton.disabled = true;
-    statusIndicator.textContent = "Réponse en cours...";
+    statusIndicator.textContent = "Réponse en cours";
+    const loadingAnimation = setInterval(() => {
+        if (statusIndicator.textContent === "Réponse en cours...") {
+            statusIndicator.textContent = "Réponse en cours";
+        } else {
+            statusIndicator.textContent += ".";
+        }
+    }, 500);
+    
+    window.currentLoadingAnimation = loadingAnimation;
 
     const prompt =
         messages.map((m) => `<|${m.role}|>\n${m.content}`).join("\n") +
@@ -32,7 +41,6 @@ async function sendMessage(userMessage) {
     const payload = {
         inputs: prompt,
         parameters: {
-            max_new_tokens: 300,
             temperature: 0.7,
             top_p: 0.9,
             do_sample: true,
@@ -81,5 +89,5 @@ userInput.addEventListener("keypress", (e) => {
 });
 
 window.addEventListener("load", () => {
-    addMessageToChat("Bonjour ! Posez votre question à l’IA 👋", "assistant");
+    addMessageToChat("Bonjour ! Une question sur une recette ? Un produit ? Posez moi n'importe quelle question !", "assistant");
 });
