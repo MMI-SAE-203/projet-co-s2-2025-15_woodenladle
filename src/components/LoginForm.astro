@@ -25,28 +25,29 @@
 
 <script is:browser>
     const form = document.getElementById("loginForm");
-    const errorP = document.getElementById("error");
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const data = new FormData(form);
-        const email = data.get("email");
-        const password = data.get("password");
+
+        const formData = new FormData(form);
+        const email = formData.get("email");
+        const password = formData.get("password");
 
         const res = await fetch("/api/login", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({ email, password }),
-            headers: { "Content-Type": "application/json" },
         });
 
-        const json = await res.json();
-        if (json.error) {
-            errorP.textContent = json.error;
-            errorP.classList.remove("hidden");
+        const result = await res.json();
+
+        if (res.ok) {
+            localStorage.setItem("user", JSON.stringify(result.user)); // ✅ stockage ici
+            window.location.href = "/"; // ou /profil selon ton besoin
         } else {
-            errorP.classList.add("hidden");
-            alert("Connexion réussie !");
-            // Redirection possible ici
+            alert(result.error || "Erreur de connexion");
         }
     });
 </script>

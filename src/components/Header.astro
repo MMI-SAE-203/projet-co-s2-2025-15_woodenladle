@@ -27,8 +27,8 @@ import Login from "../assets/icons/login.svg";
             href="/chat">WL Bot</a
         >
 
-        <!-- Zone connexion / avatar -->
-        <a href="/auth" id="login-link">
+        <!-- Zone icône ou avatar -->
+        <a href="/auth" id="avatar-container">
             <Login
                 id="login-icon"
                 class="transition-transform scale-65 hover:scale-70"
@@ -38,9 +38,9 @@ import Login from "../assets/icons/login.svg";
 </header>
 
 <script is:browser>
+    // Scroll hide
     const header = document.getElementById("header");
     let lastScrollY = window.scrollY;
-
     window.addEventListener("scroll", () => {
         header.style.transform =
             window.scrollY > lastScrollY
@@ -49,18 +49,25 @@ import Login from "../assets/icons/login.svg";
         lastScrollY = window.scrollY;
     });
 
-    // Avatar dynamique si connecté
+    // Avatar dynamique
     const user = JSON.parse(localStorage.getItem("user"));
-    const loginLink = document.getElementById("login-link");
+    const avatarLink = document.getElementById("avatar-container");
 
     if (user?.avatar && user?.id) {
         const avatarUrl = `http://127.0.0.1:8090/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
+
+        // Supprimer l'icône de login
+        const loginIcon = document.getElementById("login-icon");
+        if (loginIcon) loginIcon.remove();
+
+        // Créer avatar
         const avatarImg = document.createElement("img");
         avatarImg.src = avatarUrl;
         avatarImg.alt = "Avatar";
         avatarImg.className =
             "w-10 h-10 rounded-full object-cover border-2 border-gray-300 hover:scale-105 transition-transform";
-        loginLink.innerHTML = "";
-        loginLink.appendChild(avatarImg);
+
+        // Ajouter dans le lien
+        avatarLink.appendChild(avatarImg);
     }
 </script>
