@@ -6,37 +6,61 @@ import Login from "../assets/icons/login.svg";
     id="header"
     class="px-10 fixed top-0 transition-transform flex w-full h-20 items-center justify-between bg-gray-100 shadow-md text-white z-10"
 >
-    <a href="/" class="pointer font-lilitaone text-4xl text-black">WOODEN LADLE</a>
-    <nav class="pr-5 gap-23 items-center flex">
-        <div class="relative group" id="boutique-container">
-            <a
-                class="text-black text-xl font-montserrat hover:scale-105 transition-transform"
-                href="/produits"
-            >
-                Nos produits
-            </a>
-        </div>
-        <a class="text-black text-xl font-montserrat hover:scale-105 transition-transform" href="/propos">À propos</a>
-        <a class="text-black text-xl font-montserrat hover:scale-105 transition-transform" href="/recettes">Les recettes</a>
-        <a class="text-black text-xl font-montserrat hover:scale-105 transition-transform" href="/chat">WL Bot</a>
-        <a href="/connexion" class="">
-            <Login class="transition-transform scale-65 hover:scale-70" />
+    <a href="/" class="pointer font-lilitaone text-4xl text-black"
+        >WOODEN LADLE</a
+    >
+    <nav class="pr-5 gap-10 items-center flex">
+        <a
+            class="text-black text-xl font-montserrat hover:scale-105 transition-transform"
+            href="/produits">Nos produits</a
+        >
+        <a
+            class="text-black text-xl font-montserrat hover:scale-105 transition-transform"
+            href="/propos">À propos</a
+        >
+        <a
+            class="text-black text-xl font-montserrat hover:scale-105 transition-transform"
+            href="/recettes">Les recettes</a
+        >
+        <a
+            class="text-black text-xl font-montserrat hover:scale-105 transition-transform"
+            href="/chat">WL Bot</a
+        >
+
+        <!-- Zone connexion / avatar -->
+        <a href="/auth" id="login-link">
+            <Login
+                id="login-icon"
+                class="transition-transform scale-65 hover:scale-70"
+            />
         </a>
     </nav>
 </header>
 
-<script>
+<script is:browser>
+    const header = document.getElementById("header");
     let lastScrollY = window.scrollY;
-    const header = document.getElementById('header');
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > lastScrollY) {
-            // Scroll vers le bas
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            // Scroll vers le haut
-            header.style.transform = 'translateY(0)';
-        }
+    window.addEventListener("scroll", () => {
+        header.style.transform =
+            window.scrollY > lastScrollY
+                ? "translateY(-100%)"
+                : "translateY(0)";
         lastScrollY = window.scrollY;
     });
+
+    // Avatar dynamique si connecté
+    const user = JSON.parse(localStorage.getItem("user"));
+    const loginLink = document.getElementById("login-link");
+
+    if (user?.avatar && user?.id) {
+        const avatarUrl = `http://127.0.0.1:8090/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
+        const avatarImg = document.createElement("img");
+        avatarImg.src = avatarUrl;
+        avatarImg.alt = "Avatar";
+        avatarImg.className =
+            "w-10 h-10 rounded-full object-cover border-2 border-gray-300 hover:scale-105 transition-transform";
+        loginLink.innerHTML = "";
+        loginLink.appendChild(avatarImg);
+    }
 </script>
