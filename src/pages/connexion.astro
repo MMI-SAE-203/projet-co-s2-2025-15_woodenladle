@@ -28,7 +28,7 @@ if (Astro.request.method === "POST") {
         </h1>
     </div>
 
-    <div class="mb-20">
+    <div class="mb-10">
         <form method="POST" class="flex flex-col items-center mt-20 space-y-10">
             <input
                 type="text"
@@ -58,11 +58,16 @@ if (Astro.request.method === "POST") {
 
             <button
                 type="submit"
-                class="bg-gray-100 text-white rounded-full border-2 border-black px-10 py-1.5 font-lilitaone text-lg hover:bg-green transition-all hover:border-b-3 hover:border-l-3 hover:border-green-700 focus:bg-green focus:border-none [-webkit-text-stroke:0.5px_black]"
+                class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px] hover:bg-black hover:text-white border-black text-black"
             >
                 Se connecter
             </button>
         </form>
+        <div class="flex flex-col items-center mt-10 space-y-3">
+            <a href="" class="text-[15px] pointer font-montserrat">Mot de passe oublié ?</a>
+            <a href="" class="text-[15px] pointer font-montserrat">Créer un compte<a>
+            <p class="text-[15px] mt-20 font-montserrat">Créer un compte permet d'ajouter vos propres recettes au site</p>
+        </div>
     </div>
 </Layout>
 
