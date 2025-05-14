@@ -6,8 +6,15 @@ import LoginForm from "../components/LoginForm.astro";
 <Layout>
     <div class="flex flex-col gap-6 text-black">
         <!-- Section Login (si non connecté) -->
-        <div class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b">
-            <h1 class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]">Se connecter</h1>
+        <div
+            id="login-title"
+            class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
+        >
+            <h1
+                class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
+            >
+                Se connecter
+            </h1>
         </div>
         <div id="login-section">
             <LoginForm />
@@ -47,6 +54,7 @@ import LoginForm from "../components/LoginForm.astro";
         window.addEventListener("DOMContentLoaded", () => {
             const user = JSON.parse(localStorage.getItem("user"));
             const loginSection = document.getElementById("login-section");
+            const loginTitle = document.getElementById("login-title");
             const connectedSection =
                 document.getElementById("connected-section");
             const connectedEmail = document.getElementById("connected-email");
@@ -58,6 +66,7 @@ import LoginForm from "../components/LoginForm.astro";
                 // Affichage connecté
                 loginSection.classList.add("hidden");
                 connectedSection.classList.remove("hidden");
+                loginTitle.classList.add("hidden");
 
                 connectedEmail.textContent =
                     "Connecté en tant que : " + user.email;
@@ -77,7 +86,7 @@ import LoginForm from "../components/LoginForm.astro";
 
                     const formData = new FormData(avatarForm);
                     formData.append("id", user.id);
-                    formData.append("token", user.token); // Auth
+                    formData.append("token", user.token);
 
                     const res = await fetch("/api/update-profile", {
                         method: "POST",
@@ -92,6 +101,7 @@ import LoginForm from "../components/LoginForm.astro";
                             JSON.stringify(result.user),
                         );
                         alert("Avatar mis à jour !");
+                        avatarForm.reset(); // <-- 🔁 Nettoyer l'input fichier
                         window.location.reload();
                     } else {
                         alert(

@@ -2,7 +2,7 @@
 
 ---
 
-<form id="loginForm" class="w-1/4 space-y-4 text-center mx-auto mt-10">
+<form id="loginForm" class="w-1/4 mb-15 space-y-4 text-center mx-auto mt-10">
     <input type="email" name="email" placeholder="Email" required class="w-full p-2 border rounded-xl" />
     <div class="relative">
         <input
@@ -32,6 +32,9 @@
         Se connecter</button
     >
     <p id="error" class="text-red-500 mt-2 hidden"></p>
+    <p class="text-gray-500">
+        Pas encore de compte ?
+        <a href="/register" class="text-green-600 hover:underline">Créer un compte</a>
 </form>
 
 <script is:browser>

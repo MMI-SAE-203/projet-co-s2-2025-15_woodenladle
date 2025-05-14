@@ -98,3 +98,7 @@ export async function allEtapeByRecette(id) {
     });
     return record;
 }
+
+export async function updateUser(id, data) {
+    await pb.collection('users').update(id, data);
+}
