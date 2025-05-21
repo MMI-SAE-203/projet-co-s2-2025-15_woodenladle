@@ -102,3 +102,12 @@ export async function allEtapeByRecette(id) {
 export async function updateUser(id, data) {
     await pb.collection('users').update(id, data);
 }
+
+export async function ProduitByRegionAndCategorie(region, categorie) {
+    const all = await allProduitSorted();
+    return all.filter(prod => {
+        const matchRegion = region === "Tout" || prod.Region === region;
+        const matchCategorie = categorie === "Tout" || prod.Categorie === categorie;
+        return matchRegion && matchCategorie;
+    });
+}
