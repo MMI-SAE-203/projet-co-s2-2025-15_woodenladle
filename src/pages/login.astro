@@ -47,6 +47,14 @@ import LoginForm from "../components/LoginForm.astro";
             >
                 Se déconnecter
             </button>
+
+            <!-- 🔴 Bouton suppression compte -->
+            <button
+                id="delete-account-btn"
+                class="bg-red-800 text-white px-4 py-2 rounded hover:bg-red-900 transition"
+            >
+                Supprimer mon compte
+            </button>
         </div>
     </div>
 
@@ -55,12 +63,12 @@ import LoginForm from "../components/LoginForm.astro";
             const user = JSON.parse(localStorage.getItem("user"));
             const loginSection = document.getElementById("login-section");
             const loginTitle = document.getElementById("login-title");
-            const connectedSection =
-                document.getElementById("connected-section");
+            const connectedSection = document.getElementById("connected-section");
             const connectedEmail = document.getElementById("connected-email");
             const connectedAvatar = document.getElementById("connected-avatar");
             const logoutBtn = document.getElementById("logout-btn");
             const avatarForm = document.getElementById("avatar-form");
+            const deleteAccountBtn = document.getElementById("delete-account-btn");
 
             if (user?.email) {
                 // Affichage connecté
@@ -68,8 +76,7 @@ import LoginForm from "../components/LoginForm.astro";
                 connectedSection.classList.remove("hidden");
                 loginTitle.classList.add("hidden");
 
-                connectedEmail.textContent =
-                    "Connecté en tant que : " + user.email;
+                connectedEmail.textContent = "Connecté en tant que : " + user.email;
                 if (user.avatar) {
                     connectedAvatar.src = `http://127.0.0.1:8090/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
                 }
@@ -96,18 +103,39 @@ import LoginForm from "../components/LoginForm.astro";
                     const result = await res.json();
 
                     if (res.ok && result.user) {
-                        localStorage.setItem(
-                            "user",
-                            JSON.stringify(result.user),
-                        );
+                        localStorage.setItem("user", JSON.stringify(result.user));
                         alert("Avatar mis à jour !");
-                        avatarForm.reset(); // <-- 🔁 Nettoyer l'input fichier
+                        avatarForm.reset();
                         window.location.reload();
                     } else {
-                        alert(
-                            result.error ||
-                                "Erreur lors de la mise à jour de l’avatar.",
-                        );
+                        alert(result.error || "Erreur lors de la mise à jour de l’avatar.");
+                    }
+                });
+
+                // Suppression compte
+                deleteAccountBtn.addEventListener("click", async () => {
+                    const confirmed = confirm("Es-tu sûr de vouloir supprimer ton compte ?");
+                    if (!confirmed) return;
+
+                    const res = await fetch("/api/delete-account", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            id: user.id,
+                            token: user.token
+                        })
+                    });
+
+                    const result = await res.json();
+
+                    if (res.ok) {
+                        alert("Compte supprimé !");
+                        localStorage.removeItem("user");
+                        window.location.href = "/";
+                    } else {
+                        alert(result.error || "Erreur lors de la suppression du compte.");
                     }
                 });
             }

@@ -16,14 +16,18 @@ export const POST: APIRoute = async ({ request }) => {
             return new Response(JSON.stringify({ error: 'Champs requis manquants.' }), { status: 400 });
         }
 
-        const user = await pb.collection('users').create({
-            email,
-            emailVisibility: true,
-            password,
-            passwordConfirm: password,
-            pseudo,
-            avatar
-        });
+        // 🔁 FormData côté serveur pour upload de fichiers
+        const data = new FormData();
+        data.append('email', email);
+        data.append('emailVisibility', 'true');
+        data.append('password', password);
+        data.append('passwordConfirm', password);
+        data.append('pseudo', pseudo);
+        if (avatar && avatar.size > 0) {
+            data.append('avatar', avatar);
+        }
+
+        const user = await pb.collection('users').create(data);
 
         const auth = await pb.collection('users').authWithPassword(email, password);
 
@@ -39,7 +43,17 @@ export const POST: APIRoute = async ({ request }) => {
             { status: 200 }
         );
     } catch (err: any) {
-        console.error("❌ Register error:", err);
-        return new Response(JSON.stringify({ error: err?.message || 'Erreur serveur' }), { status: 500 });
+        console.error("❌ Register error:", err?.response || err);
+
+        return new Response(
+            JSON.stringify({
+                error:
+                    err?.response?.message ||
+                    err?.data?.message ||
+                    err?.message ||
+                    'Erreur serveur'
+            }),
+            { status: 500 }
+        );
     }
 };

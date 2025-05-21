@@ -41,29 +41,61 @@ import Layout from "../layouts/Layout.astro";
                 Créer mon compte
             </button>
         </form>
+        <p id="password-strength" class="text-gray-500 text-sm mt-1">Mot de passe supérieur à 8 caractères</p>
+        <p id="password-number" class="text-gray-500 text-sm mt-1">Doit contenir minimum un chiffre</p>
+
     </div>
 
     <script is:browser>
-        const form = document.getElementById("register-form");
+    const form = document.getElementById("register-form");
+    const passwordInput = document.querySelector('input[name="password"]');
+    const passwordStrength = document.getElementById('password-strength');
+    const passwordNumber = document.getElementById('password-number');
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(form);
-            const res = await fetch("/api/register", {
-                method: "POST",
-                body: formData,
-            });
-
-            const result = await res.json();
-
-            if (res.ok) {
-                localStorage.setItem("user", JSON.stringify(result.user));
-                alert("Compte créé avec succès !");
-                window.location.href = "/"; // redirection post-inscription
-            } else {
-                alert(result.error || "Erreur lors de l'inscription.");
-            }
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        // Check if password contains at least one digit
+        if (!/\d/.test(passwordInput.value)) {
+        alert("Le mot de passe doit contenir au moins un chiffre.");
+        return;
+        }
+        
+        const formData = new FormData(form);
+        const res = await fetch("/api/register", {
+        method: "POST",
+        body: formData,
         });
+        
+        const result = await res.json();
+        
+        if (res.ok) {
+        localStorage.setItem("user", JSON.stringify(result.user));
+        alert("Compte créé avec succès !");
+        window.location.href = "/"; // redirection post-inscription
+        } else {
+        alert(result.error || "Erreur lors de l'inscription.");
+        }
+    });
+
+    passwordInput.addEventListener('input', () => {
+        const hasDigit = /\d/.test(passwordInput.value);
+        const isLongEnough = passwordInput.value.length >= 8;
+        
+        // Update length requirement feedback
+        if (isLongEnough) {
+        passwordStrength.className = 'text-green-500 text-sm mt-1';
+        } else {
+        passwordStrength.className = 'text-red-500 text-sm mt-1';
+        }
+        
+        // Update digit requirement feedback
+        if (hasDigit) {
+        passwordNumber.className = 'text-green-500 text-sm mt-1';
+        } else {
+        passwordNumber.className = 'text-red-500 text-sm mt-1';
+        }
+    });
     </script>
+
 </Layout>
