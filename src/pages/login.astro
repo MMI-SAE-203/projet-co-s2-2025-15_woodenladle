@@ -5,7 +5,6 @@ import LoginForm from "../components/LoginForm.astro";
 
 <Layout>
     <div class="flex flex-col gap-6 text-black">
-        <!-- Section Login (si non connecté) -->
         <div
             id="login-title"
             class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
@@ -20,13 +19,11 @@ import LoginForm from "../components/LoginForm.astro";
             <LoginForm />
         </div>
 
-        <!-- Section utilisateur connecté -->
         <div id="connected-section" class="hidden flex flex-col gap-6">
             <h2 class="text-2xl font-bold">Mon compte</h2>
             <p id="connected-email" class="text-lg"></p>
             <img id="connected-avatar" class="w-24 h-24 rounded-full border" />
 
-            <!-- Formulaire de mise à jour de l'avatar -->
             <form
                 id="avatar-form"
                 enctype="multipart/form-data"
@@ -48,7 +45,6 @@ import LoginForm from "../components/LoginForm.astro";
                 Se déconnecter
             </button>
 
-            <!-- 🔴 Bouton suppression compte -->
             <button
                 id="delete-account-btn"
                 class="bg-red-800 text-white px-4 py-2 rounded hover:bg-red-900 transition"
