@@ -26,6 +26,13 @@ import Layout from "../layouts/Layout.astro";
                 class="p-2 border"
             />
             <input
+                type="password"
+                name="confirm-password"
+                placeholder="Confirmer le mot de passe"
+                required
+                class="p-2 border"
+            />
+            <input
                 type="text"
                 name="pseudo"
                 placeholder="Pseudo"
@@ -49,6 +56,7 @@ import Layout from "../layouts/Layout.astro";
     <script is:browser>
     const form = document.getElementById("register-form");
     const passwordInput = document.querySelector('input[name="password"]');
+    const confirmPasswordInput = document.querySelector('input[name="confirm-password"]');
     const passwordStrength = document.getElementById('password-strength');
     const passwordNumber = document.getElementById('password-number');
 
@@ -58,6 +66,11 @@ import Layout from "../layouts/Layout.astro";
         // Check if password contains at least one digit
         if (!/\d/.test(passwordInput.value)) {
         alert("Le mot de passe doit contenir au moins un chiffre.");
+        return;
+        }
+
+        if (passwordInput.value !== confirmPasswordInput.value) {
+        alert("Les mots de passe ne correspondent pas.");
         return;
         }
         
