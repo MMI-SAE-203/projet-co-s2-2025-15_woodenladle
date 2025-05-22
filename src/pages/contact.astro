@@ -1,7 +1,107 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
+import { addMessage } from "../../backend/backend.mjs";
+import Lampe from "../assets/icons/lighton.svg";
+import btn from "../components/Button_vide.astro";
+
+let success = false;
+let error = "";
+
+// Traitement du POST
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    const nom = formData.get("nom");
+    const email = formData.get("email");
+    const message = formData.get("message");
+
+    if (!nom || !email || !message) {
+        error = "Tous les champs sont requis.";
+    } else {
+        try {
+            await addMessage({nom, email, message });
+            success = true;
+        } catch (e) {
+            console.error("[Erreur addMessage]", e);
+            error = "Une erreur est survenue.";
+        }
+    }
+}
 ---
 
-<Layout>
+<Layout title="Contact">
+    <div
+    id="login-title"
+    class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
+    >
+        <h1
+            class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
+        >
+            Nous contacter
+        </h1>
+    </div>
+    <div class="flex justify-between mx-50 mt-15 mb-15">
+        <div class="w-1/2 flex flex-col justify-center items-center space-y-10">
+            <p>Bienvenue sur notre page de contact ! Nous savons à quel point il est important pour vous d’obtenir des réponses rapides et précises. Que ce soit pour une question sur nos produits, une suggestion ou un besoin d’assistance, nous sommes là pour vous accompagner.</p>
+            <Lampe class="" />
+            <p>De plus, notre bot intelligent est également disponible pour répondre à vos questions en temps réel. Grâce à son fonctionnement basé sur l’Intelligence Artificielle, il peut vous guider dans votre recherche de produits ou dans l’utilisation de nos services.</p>
+        </div>
+        <div class="">
     
+            {
+                success && (
+                    <>
+                        <p class="mb-4 text-green-600 text-center">
+                            Message envoyé avec succès ✅
+                        </p>
+                        <script>
+                            setTimeout(() => window.location.href = '/contact',
+                            1500);
+                        </script>
+                    </>
+                )
+            }
+    
+            {error && <p class="mb-4 text-red-600 text-center">{error}</p>}
+    
+    
+            <form method="POST" class="space-y-4">
+                <div class="space-y-4">
+                    <input
+                        type="text"
+                        id="nom"
+                        name="nom"
+                        required
+                        class="w-full px-4 py-2 border-2 rounded-xl bg-white"
+                        placeholder="Votre prenom nom"
+                    />
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        class="w-full px-4 py-2 border-2 rounded-xl bg-white"
+                        placeholder="Votre adresse email"
+                    />
+                </div>
+    
+                <div>
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="4"
+                        required
+                        class="w-full h-50 px-4 py-2 border-2 rounded-xl bg-white"
+                        placeholder="Votre message"
+                    ></textarea>
+                </div>
+    
+                <button
+                    type="submit"
+                    class="font-lilitaone uppercase text-lg hover:w-full transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]"
+                >
+                    Envoyer
+                </button>
+            </form>
+        </div>
+    </div>
 </Layout>

@@ -111,3 +111,14 @@ export async function ProduitByRegionAndCategorie(region, categorie) {
         return matchRegion && matchCategorie;
     });
 }
+
+export async function addMessage(data) {
+    const same = await pb.collection("contact").getFullList({
+        filter: `nom = "${data.nom}" && email = "${data.email}" && message = "${data.message}"`
+    });
+
+    if (same.length > 0) return same[0];
+
+    const record = await pb.collection("contact").create(data);
+    return record;
+}
