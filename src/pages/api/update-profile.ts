@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     try {
-        const pb = new PocketBase('http://127.0.0.1:8090');
+        const pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
         pb.authStore.save(token, id); // Simule une session avec token
 

@@ -1,5 +1,5 @@
 ---
-import Login from "../assets/icons/login.svg";
+import loginIconUrl from "../assets/icons/login.svg?url";
 ---
 
 <header
@@ -33,9 +33,11 @@ import Login from "../assets/icons/login.svg";
 
         <!-- Zone icône ou avatar -->
         <a href="/login" id="avatar-container">
-            <Login
+            <img
                 id="login-icon"
                 class="transition-transform scale-65 hover:scale-70"
+                src={loginIconUrl}
+                alt="Icône de connexion"
             />
         </a>
     </nav>
@@ -58,7 +60,7 @@ import Login from "../assets/icons/login.svg";
     const avatarLink = document.getElementById("avatar-container");
 
     if (user?.avatar && user?.id) {
-        const avatarUrl = `http://127.0.0.1:8090/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
+        const avatarUrl = `https://savoury-road.mathis-guellati.fr/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
 
         // Supprimer l'icône de login
         const loginIcon = document.getElementById("login-icon");

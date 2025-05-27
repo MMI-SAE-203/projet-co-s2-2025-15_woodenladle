@@ -1,39 +1,90 @@
 ---
-import Linkdin from '../assets/icons/linkdin.svg';
-import Instagram from '../assets/icons/insta.svg';
-import Facebook from '../assets/icons/facebook.svg';
-import X from '../assets/icons/x.svg';
-import Yt from '../assets/icons/yt.svg';
+import facebookUrl from "../assets/icons/facebook.svg?url";
+import xUrl from "../assets/icons/x.svg?url";
+import linkedinUrl from "../assets/icons/linkdin.svg?url";
+import instaUrl from "../assets/icons/insta.svg?url";
+import ytUrl from "../assets/icons/yt.svg?url";
 ---
 
-<footer class="bottom-0 bg-gray-100 h-[200px] flex items-center justify-around border-t-2 w-full">
-    <div class="">
-        <a href="/" class="pointer font-lilitaone text-4xl text-black">SAVOURY ROAD</a>
+<footer
+    class="bottom-0 bg-gray-100 h-[200px] flex items-center justify-around border-t-2 w-full"
+>
+    <div>
+        <a href="/" class="pointer font-lilitaone text-4xl text-black"
+            >SAVOURY ROAD</a
+        >
     </div>
+
     <div class="space-y-4">
         <p class="font-lilitaone text-2xl text-black uppercase">Nos services</p>
         <ul class="space-y-2">
-            <li><a class="font-montserrat text-[16px] text-black" href="/produits">Nos produits</a></li>
-            <li><a class="font-montserrat text-[16px] text-black" href="/recettes">Les recettes simples</a></li>
-            <li><a class="font-montserrat text-[16px] text-black" href="/chat">SR Bot</a></li>
+            <li>
+                <a
+                    class="font-montserrat text-[16px] text-black"
+                    href="/produits">Nos produits</a>
+            </li>
+            <li>
+                <a
+                    class="font-montserrat text-[16px] text-black"
+                    href="/recettes">Les recettes simples</a>
+            </li>
+            <li>
+                <a class="font-montserrat text-[16px] text-black" href="/chat"
+                    >SR Bot</a>
+            </li>
         </ul>
     </div>
+
     <div class="space-y-4">
         <p class="font-lilitaone text-2xl text-black uppercase">Autre</p>
         <ul class="space-y-2">
-            <li><a class="font-montserrat text-[16px] text-black" href="/mentionlegale">Mentions légales</a></li>
-            <li><a class="font-montserrat text-[16px] text-black" href="/propos">À propos</a></li>
-            <li><a class="font-montserrat text-[16px] text-black" href="">Contact</a></li>
+            <li>
+                <a
+                    class="font-montserrat text-[16px] text-black"
+                    href="/mentionlegale">Mentions légales</a>
+            </li>
+            <li>
+                <a class="font-montserrat text-[16px] text-black" href="/propos"
+                    >À propos</a>
+            </li>
+            <li>
+                <a
+                    class="font-montserrat text-[16px] text-black"
+                    href="/contact">Contact</a>
+            </li>
         </ul>
     </div>
+
     <div class="space-y-4">
-        <p class="font-lilitaone text-2xl text-black uppercase">Rejoignez-nous</p>
+        <p class="font-lilitaone text-2xl text-black uppercase">
+            Rejoignez-nous
+        </p>
         <ul class="flex gap-4">
-            <li><a href="https://facebook.com"><Facebook /></a></li>
-            <li><a href="https://twitter.com"><X /></a></li>
-            <li><a href="https://linkedin.com"><Linkdin /></a></li>
-            <li><a href="https://instagram.com"><Instagram /></a></li>
-            <li><a href="https://youtube.com"><Yt /></a></li>
+            <li>
+                <a href="https://facebook.com" target="_blank" rel="noopener">
+                    <img src={facebookUrl} alt="Facebook" class="w-6 h-6" />
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com" target="_blank" rel="noopener">
+                    <img src={xUrl} alt="X (Twitter)" class="w-6 h-6" />
+                </a>
+            </li>
+            <li>
+                <a href="https://linkedin.com" target="_blank" rel="noopener">
+                    <img src={linkedinUrl} alt="LinkedIn" class="w-6 h-6" />
+                </a>
+            </li>
+            <li>
+                <a href="https://instagram.com" target="_blank" rel="noopener">
+                    <img src={instaUrl} alt="Instagram" class="w-6 h-6" />
+                </a>
+            </li>
+            <li>
+                <a href="https://youtube.com" target="_blank" rel="noopener">
+                    <img src={ytUrl} alt="YouTube" class="w-6 h-6" />
+                </a>
+            </li>
         </ul>
     </div>
 </footer>

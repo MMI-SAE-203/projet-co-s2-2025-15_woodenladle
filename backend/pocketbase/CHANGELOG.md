@@ -301,7 +301,7 @@
 
     ...
 
-    const pb = new PocketBase("http://127.0.0.1:8090") as TypedPocketBase;
+    const pb = new PocketBase("https://savoury-road.mathis-guellati.fr") as TypedPocketBase;
 
     // the same as pb.collection('tasks').getOne<Task>("RECORD_ID")
     await pb.collection('tasks').getOne("RECORD_ID") // -> results in Task

@@ -20,7 +20,9 @@ export async function getStaticPaths() {
 const { id } = Astro.params;
 const prod = await ProduitById(id);
 const fournisseurs = prod
-    ? await Promise.all(prod.Fournisseur.map((id: string) => FournisseurById(id)))
+    ? await Promise.all(
+          prod.Fournisseur.map((id: string) => FournisseurById(id)),
+      )
     : [];
 
 if (!prod) {

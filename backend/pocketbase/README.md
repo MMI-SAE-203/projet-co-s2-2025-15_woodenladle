@@ -84,7 +84,7 @@ const PocketBase = require('pocketbase/cjs')
 ```js
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
 ...
 
@@ -207,7 +207,7 @@ const store = new AsyncAuthStore({
     initial: AsyncStorage.getItem('pb_auth'),
 });
 
-const pb = new PocketBase('http://127.0.0.1:8090', store)
+const pb = new PocketBase('https://savoury-road.mathis-guellati.fr', store)
 ```
 
 ##### Custom auth store
@@ -225,7 +225,7 @@ class CustomAuthStore extends BaseAuthStore {
     }
 }
 
-const pb = new PocketBase('http://127.0.0.1:8090', new CustomAuthStore());
+const pb = new PocketBase('https://savoury-road.mathis-guellati.fr', new CustomAuthStore());
 ```
 
 ##### Common auth store fields and methods
@@ -346,7 +346,7 @@ interface TypedPocketBase extends PocketBase {
 
 ...
 
-const pb = new PocketBase("http://127.0.0.1:8090") as TypedPocketBase;
+const pb = new PocketBase("https://savoury-road.mathis-guellati.fr") as TypedPocketBase;
 
 pb.collection('tasks').getOne("RECORD_ID") // -> results in Promise<Task>
 pb.collection('posts').getOne("RECORD_ID") // -> results in Promise<Post>
@@ -393,7 +393,7 @@ To accomplish this, the SDK provides 2 function hooks:
 
 - `beforeSend` - triggered right before sending the `fetch` request, allowing you to inspect/modify the request config.
     ```js
-    const pb = new PocketBase('http://127.0.0.1:8090');
+    const pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
     pb.beforeSend = function (url, options) {
         // For list of the possible request options properties check
@@ -408,7 +408,7 @@ To accomplish this, the SDK provides 2 function hooks:
 
 - `afterSend` - triggered after successfully sending the `fetch` request, allowing you to inspect/modify the response object and its parsed data.
     ```js
-    const pb = new PocketBase('http://127.0.0.1:8090');
+    const pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
     pb.afterSend = function (response, data) {
         // do something with the response state
@@ -457,7 +457,7 @@ import PocketBase from 'pocketbase';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-    event.locals.pb = new PocketBase('http://127.0.0.1:8090');
+    event.locals.pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
     // load the store data from the request cookie string
     event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
@@ -525,7 +525,7 @@ import PocketBase from 'pocketbase';
 import { defineMiddleware } from 'astro/middleware';
 
 export const onRequest = defineMiddleware(async ({ locals, request }: any, next: () => any) => {
-    locals.pb = new PocketBase('http://127.0.0.1:8090');
+    locals.pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
     // load the store data from the request cookie string
     locals.pb.authStore.loadFromCookie(request.headers.get('cookie') || '');
@@ -585,7 +585,7 @@ and provide it as a helper to the `nuxtApp` instance:
 import PocketBase from 'pocketbase';
 
 export default defineNuxtPlugin(async () => {
-  const pb = new PocketBase('http://127.0.0.1:8090');
+  const pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
   const cookie = useCookie('pb_auth', {
     path:     '/',
@@ -650,7 +650,7 @@ One way to integrate with Nuxt 2 SSR could be to create the PocketBase client in
 import PocketBase from  'pocketbase';
 
 export default async (ctx, inject) => {
-  const pb = new PocketBase('http://127.0.0.1:8090');
+  const pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
   // load the store data from the request cookie string
   pb.authStore.loadFromCookie(ctx.req?.headers?.cookie || '');
@@ -708,7 +708,7 @@ import PocketBase from 'pocketbase';
 
 // you can place this helper in a separate file so that it can be reused
 async function initPocketBase(req, res) {
-  const pb = new PocketBase('http://127.0.0.1:8090');
+  const pb = new PocketBase('https://savoury-road.mathis-guellati.fr');
 
   // load the store data from the request cookie string
   pb.authStore.loadFromCookie(req?.headers?.cookie || '');

@@ -74,7 +74,7 @@ import LoginForm from "../components/LoginForm.astro";
 
                 connectedEmail.textContent = "Connecté en tant que : " + user.email;
                 if (user.avatar) {
-                    connectedAvatar.src = `http://127.0.0.1:8090/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
+                    connectedAvatar.src = `https://savoury-road.mathis-guellati.fr/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
                 }
 
                 // Déconnexion

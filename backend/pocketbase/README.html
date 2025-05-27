@@ -1153,7 +1153,7 @@ I recommend <a href="https://github.com/lquixada/cross-fetch">lquixada/cross-fet
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link"></a></h2>
 <div class="highlight"><pre><span class="kr">import</span> <span class="nx">PocketBase</span> <span class="nx">from</span> <span class="s1">&#39;pocketbase&#39;</span><span class="p">;</span>
 
-<span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">);</span>
 
 <span class="p">...</span>
 
@@ -1263,7 +1263,7 @@ which means that to upload a file it is enough to provide either a <a href="http
     <span class="nx">initial</span><span class="o">:</span> <span class="nx">AsyncStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;pb_auth&#39;</span><span class="p">),</span>
 <span class="p">});</span>
 
-<span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">,</span> <span class="nx">store</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">,</span> <span class="nx">store</span><span class="p">)</span>
 </pre></div></p>
 <h5 id="custom-auth-store">Custom auth store<a class="headerlink" href="#custom-auth-store" title="Permanent link"></a></h5>
 <p>In some situations it could be easier to create your own custom auth store. For this you can extend <a href="https://github.com/pocketbase/js-sdk/blob/master/src/stores/BaseAuthStore.ts"><code>BaseAuthStore</code></a> and pass the new custom instance as constructor argument to the client:</p>
@@ -1277,7 +1277,7 @@ which means that to upload a file it is enough to provide either a <a href="http
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">CustomAuthStore</span><span class="p">());</span>
+<span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">CustomAuthStore</span><span class="p">());</span>
 </pre></div>
 
 <h5 id="common-auth-store-fields-and-methods">Common auth store fields and methods<a class="headerlink" href="#common-auth-store-fields-and-methods" title="Permanent link"></a></h5>
@@ -1378,7 +1378,7 @@ Or set it to a unique string that will be used as request identifier and based o
 
 <span class="p">...</span>
 
-<span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s2">&quot;http://127.0.0.1:8090&quot;</span><span class="p">)</span> <span class="kr">as</span> <span class="nx">TypedPocketBase</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s2">&quot;https://savoury-road.mathis-guellati.fr&quot;</span><span class="p">)</span> <span class="kr">as</span> <span class="nx">TypedPocketBase</span><span class="p">;</span>
 
 <span class="nx">pb</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;tasks&#39;</span><span class="p">).</span><span class="nx">getOne</span><span class="p">(</span><span class="s2">&quot;RECORD_ID&quot;</span><span class="p">)</span> <span class="c1">// -&gt; results in Promise&lt;Task&gt;</span>
 <span class="nx">pb</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">).</span><span class="nx">getOne</span><span class="p">(</span><span class="s2">&quot;RECORD_ID&quot;</span><span class="p">)</span> <span class="c1">// -&gt; results in Promise&lt;Post&gt;</span>
@@ -1417,7 +1417,7 @@ Or set it to a unique string that will be used as request identifier and based o
 <ul>
 <li>
 <p><code>beforeSend</code> - triggered right before sending the <code>fetch</code> request, allowing you to inspect/modify the request config.
-    <div class="highlight"><pre><span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">);</span>
+    <div class="highlight"><pre><span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">);</span>
 
 <span class="nx">pb</span><span class="p">.</span><span class="nx">beforeSend</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// For list of the possible request options properties check</span>
@@ -1432,7 +1432,7 @@ Or set it to a unique string that will be used as request identifier and based o
 </li>
 <li>
 <p><code>afterSend</code> - triggered after successfully sending the <code>fetch</code> request, allowing you to inspect/modify the response object and its parsed data.
-    <div class="highlight"><pre><span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">);</span>
+    <div class="highlight"><pre><span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">);</span>
 
 <span class="nx">pb</span><span class="p">.</span><span class="nx">afterSend</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// do something with the response state</span>
@@ -1476,7 +1476,7 @@ and pass it to the other server-side actions using the `event.locals`.
 
 <span class="cm">/** @type {import(&#39;@sveltejs/kit&#39;).Handle} */</span>
 <span class="kr">export</span> <span class="nx">async</span> <span class="kd">function</span> <span class="nx">handle</span><span class="p">({</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">resolve</span> <span class="p">})</span> <span class="p">{</span>
-    <span class="nx">event</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">);</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">);</span>
 
     <span class="c1">// load the store data from the request cookie string</span>
     <span class="nx">event</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">pb</span><span class="p">.</span><span class="nx">authStore</span><span class="p">.</span><span class="nx">loadFromCookie</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
@@ -1541,7 +1541,7 @@ To integrate with Astro SSR, you could create the PocketBase client in the [Midd
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">defineMiddleware</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;astro/middleware&#39;</span><span class="p">;</span>
 
 <span class="kr">export</span> <span class="kr">const</span> <span class="nx">onRequest</span> <span class="o">=</span> <span class="nx">defineMiddleware</span><span class="p">(</span><span class="nx">async</span> <span class="p">({</span> <span class="nx">locals</span><span class="p">,</span> <span class="nx">request</span> <span class="p">}</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span> <span class="nx">next</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="nx">locals</span><span class="p">.</span><span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">);</span>
+    <span class="nx">locals</span><span class="p">.</span><span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">);</span>
 
     <span class="c1">// load the store data from the request cookie string</span>
     <span class="nx">locals</span><span class="p">.</span><span class="nx">pb</span><span class="p">.</span><span class="nx">authStore</span><span class="p">.</span><span class="nx">loadFromCookie</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
@@ -1598,7 +1598,7 @@ and provide it as a helper to the `nuxtApp` instance:
 <span class="kr">import</span> <span class="nx">PocketBase</span> <span class="nx">from</span> <span class="s1">&#39;pocketbase&#39;</span><span class="p">;</span>
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">defineNuxtPlugin</span><span class="p">(</span><span class="nx">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">);</span>
 
   <span class="kr">const</span> <span class="nx">cookie</span> <span class="o">=</span> <span class="nx">useCookie</span><span class="p">(</span><span class="s1">&#39;pb_auth&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">path</span><span class="o">:</span>     <span class="s1">&#39;/&#39;</span><span class="p">,</span>
@@ -1661,7 +1661,7 @@ One way to integrate with Nuxt 2 SSR could be to create the PocketBase client in
 <span class="kr">import</span> <span class="nx">PocketBase</span> <span class="nx">from</span>  <span class="s1">&#39;pocketbase&#39;</span><span class="p">;</span>
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">inject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:8090&#39;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PocketBase</span><span class="p">(</span><span class="s1">&#39;https://savoury-road.mathis-guellati.fr&#39;</span><span class="p">);</span>
 
   <span class="c1">// load the store data from the request cookie string</span>
   <span class="nx">pb</span><span class="p">.</span><span class="nx">authStore</span><span class="p">.</span><span class="nx">loadFromCookie</span><span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">req</span><span class="o">?</span><span class="p">.</span><span class="nx">headers</span><span class="o">?</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
@@ -1717,7 +1717,7 @@ One way to integrate with Next.js SSR could be to create a custom `PocketBase` i
 
 // you can place this helper in a separate file so that it can be reused
 async function initPocketBase(req, res) {
-  const pb = new PocketBase(&#39;http://127.0.0.1:8090&#39;);
+  const pb = new PocketBase(&#39;https://savoury-road.mathis-guellati.fr&#39;);
 
   // load the store data from the request cookie string
   pb.authStore.loadFromCookie(req?.headers?.cookie || &#39;&#39;);
