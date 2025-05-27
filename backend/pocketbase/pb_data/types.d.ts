@@ -15669,7 +15669,7 @@ namespace context {
  */
 namespace net {
  /**
-  * Conn is a generic stream-oriented network connection.
+  * Conn is a generic stream-Moyen Oriented network connection.
   * 
   * Multiple goroutines may invoke methods on a Conn simultaneously.
   */
@@ -21775,7 +21775,7 @@ namespace net {
   string(): string // string form of address (for example, "192.0.2.1:25", "[2001:db8::1]:80")
  }
  /**
-  * A Listener is a generic network listener for stream-oriented protocols.
+  * A Listener is a generic network listener for stream-Moyen Oriented protocols.
   * 
   * Multiple goroutines may invoke methods on a Listener simultaneously.
   */
