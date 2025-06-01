@@ -23,23 +23,25 @@ if (Astro.request.method === "POST") {
 ---
 
 <Layout>
-    <div class="flex flex-col gap-6 text-black">
-        <div
-            id="login-title"
-            class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
-        >
-            <h1
-                class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
-            >
-                S'inscrire
-            </h1>
-        </div>
-    </div>
-    <form method="POST" enctype="multipart/form-data" class="w-1/4 mb-15 space-y-4 text-center mx-auto mt-10">
-        <input type="text" name="pseudo" class="w-full p-2 border rounded-xl" placeholder="Votre nom d'utilisateur"/>
-        <input type="email" name="email" required class="w-full p-2 border rounded-xl" placeholder="Votre adresse e-mail" />
-        <input type="password" name="password" required class="w-full p-2 border rounded-xl" placeholder="Votre mot de passe"/>
-        <input type="file" name="avatar" accept="image/*" />
+    <h1 class="mt-50">Créer un compte</h1>
+    
+    <form method="POST" enctype="multipart/form-data">
+        <label>
+            Email :
+            <input type="email" name="email" required />
+        </label><br />
+        <label>
+            Mot de passe :
+            <input type="password" name="password" required />
+        </label><br />
+        <label>
+            Pseudo :
+            <input type="text" name="pseudo" />
+        </label><br />
+        <label>
+            Avatar :
+            <input type="file" name="avatar" accept="image/*" />
+        </label><br />
         <button type="submit">S'inscrire</button>
     </form>
     {success && <p style="color:green">{success}</p>}

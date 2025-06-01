@@ -117,20 +117,36 @@ export async function addUser({ email, password, pseudo, avatar }) {
         const userData = {
             email,
             password,
-            passwordConfirm: password, // PocketBase exige ce champ
+            passwordConfirm: password,
             pseudo: pseudo || '',
         };
-
-        // Si tu veux ajouter l'avatar
         if (avatar) {
-            userData.avatar = avatar; // Fichier ou URL, selon ton front
+            userData.avatar = avatar;
         }
-
-        // Ajoute l'utilisateur à la collection "users"
         const record = await pb.collection('users').create(userData);
         return record;
     } catch (error) {
         console.error('Erreur lors de l’ajout du user :', error);
+        throw error;
+    }
+}
+
+export async function deleteUser(id) {
+    try {
+        await pb.collection('users').delete(id);
+        console.log(`User with id ${id} deleted successfully.`);
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        throw error;
+    }
+}
+
+export async function updateUser(id, userData) {
+    try {
+        const updatedRecord = await pb.collection('users').update(id, userData);
+        return updatedRecord;
+    } catch (error) {
+        console.error('Error updating user details:', error);
         throw error;
     }
 }
