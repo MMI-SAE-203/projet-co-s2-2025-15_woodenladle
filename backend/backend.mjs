@@ -112,13 +112,25 @@ export async function ProduitByRegionAndCategorie(region, categorie) {
     });
 }
 
-export async function addMessage(data) {
-    const same = await pb.collection("contact").getFullList({
-        filter: `nom = "${data.nom}" && email = "${data.email}" && message = "${data.message}"`
-    });
+export async function addUser({ email, password, pseudo, avatar }) {
+    try {
+        const userData = {
+            email,
+            password,
+            passwordConfirm: password, // PocketBase exige ce champ
+            pseudo: pseudo || '',
+        };
 
-    if (same.length > 0) return same[0];
+        // Si tu veux ajouter l'avatar
+        if (avatar) {
+            userData.avatar = avatar; // Fichier ou URL, selon ton front
+        }
 
-    const record = await pb.collection("contact").create(data);
-    return record;
+        // Ajoute l'utilisateur à la collection "users"
+        const record = await pb.collection('users').create(userData);
+        return record;
+    } catch (error) {
+        console.error('Erreur lors de l’ajout du user :', error);
+        throw error;
+    }
 }

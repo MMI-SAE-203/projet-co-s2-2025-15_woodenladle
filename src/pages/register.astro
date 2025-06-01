@@ -1,114 +1,47 @@
 ---
+import { addUser } from "../../backend/backend.mjs";
 import Layout from "../layouts/Layout.astro";
+
+let error = "";
+let success = "";
+
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const pseudo = formData.get("pseudo");
+    const avatar = formData.get("avatar"); // File
+
+    try {
+        await addUser({ email, password, pseudo, avatar });
+        success =
+            "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+    } catch (err) {
+        error = err.message || "Erreur lors de l'inscription.";
+    }
+}
 ---
 
 <Layout>
-    <div class="max-w-md mt-20 mx-auto p-6 text-black">
-        <h1 class="text-2xl font-bold mb-4">Créer un compte</h1>
-
-        <form
-            id="register-form"
-            class="flex flex-col gap-4"
-            enctype="multipart/form-data"
+    <div class="flex flex-col gap-6 text-black">
+        <div
+            id="login-title"
+            class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
         >
-            <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                required
-                class="p-2 border"
-            />
-            <input
-                type="password"
-                name="password"
-                placeholder="Mot de passe"
-                required
-                class="p-2 border"
-            />
-            <input
-                type="password"
-                name="confirm-password"
-                placeholder="Confirmer le mot de passe"
-                required
-                class="p-2 border"
-            />
-            <input
-                type="text"
-                name="pseudo"
-                placeholder="Pseudo"
-                required
-                class="p-2 border"
-            />
-            <input type="file" name="avatar" accept="image/*" class="p-2" />
-
-            <button
-                type="submit"
-                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            <h1
+                class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
             >
-                Créer mon compte
-            </button>
-        </form>
-        <p id="password-strength" class="text-gray-500 text-sm mt-1">Mot de passe supérieur à 8 caractères</p>
-        <p id="password-number" class="text-gray-500 text-sm mt-1">Doit contenir minimum un chiffre</p>
-
+                S'inscrire
+            </h1>
+        </div>
     </div>
-
-    <script is:browser>
-    const form = document.getElementById("register-form");
-    const passwordInput = document.querySelector('input[name="password"]');
-    const confirmPasswordInput = document.querySelector('input[name="confirm-password"]');
-    const passwordStrength = document.getElementById('password-strength');
-    const passwordNumber = document.getElementById('password-number');
-
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        
-        // Check if password contains at least one digit
-        if (!/\d/.test(passwordInput.value)) {
-        alert("Le mot de passe doit contenir au moins un chiffre.");
-        return;
-        }
-
-        if (passwordInput.value !== confirmPasswordInput.value) {
-        alert("Les mots de passe ne correspondent pas.");
-        return;
-        }
-        
-        const formData = new FormData(form);
-        const res = await fetch("/api/register", {
-        method: "POST",
-        body: formData,
-        });
-        
-        const result = await res.json();
-        
-        if (res.ok) {
-        localStorage.setItem("user", JSON.stringify(result.user));
-        alert("Compte créé avec succès !");
-        window.location.href = "/"; // redirection post-inscription
-        } else {
-        alert(result.error || "Erreur lors de l'inscription.");
-        }
-    });
-
-    passwordInput.addEventListener('input', () => {
-        const hasDigit = /\d/.test(passwordInput.value);
-        const isLongEnough = passwordInput.value.length >= 8;
-        
-        // Update length requirement feedback
-        if (isLongEnough) {
-        passwordStrength.className = 'text-green-500 text-sm mt-1';
-        } else {
-        passwordStrength.className = 'text-red-500 text-sm mt-1';
-        }
-        
-        // Update digit requirement feedback
-        if (hasDigit) {
-        passwordNumber.className = 'text-green-500 text-sm mt-1';
-        } else {
-        passwordNumber.className = 'text-red-500 text-sm mt-1';
-        }
-    });
-    </script>
-
+    <form method="POST" enctype="multipart/form-data" class="w-1/4 mb-15 space-y-4 text-center mx-auto mt-10">
+        <input type="text" name="pseudo" class="w-full p-2 border rounded-xl" placeholder="Votre nom d'utilisateur"/>
+        <input type="email" name="email" required class="w-full p-2 border rounded-xl" placeholder="Votre adresse e-mail" />
+        <input type="password" name="password" required class="w-full p-2 border rounded-xl" placeholder="Votre mot de passe"/>
+        <input type="file" name="avatar" accept="image/*" />
+        <button type="submit">S'inscrire</button>
+    </form>
+    {success && <p style="color:green">{success}</p>}
+    {error && <p style="color:red">{error}</p>}
 </Layout>
