@@ -44,12 +44,9 @@
     const eyeIcon = document.getElementById("eyeIcon");
     const eyeSlashIcon = document.getElementById("eyeSlashIcon");
 
-    // Toggle password visibility
     togglePassword.addEventListener("click", () => {
         const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
         passwordInput.setAttribute("type", type);
-        
-        // Toggle eye icons
         eyeIcon.classList.toggle("hidden");
         eyeSlashIcon.classList.toggle("hidden");
     });
@@ -72,8 +69,8 @@
         const result = await res.json();
 
         if (res.ok) {
-            localStorage.setItem("user", JSON.stringify(result.user)); // ✅ stockage ici
-            window.location.href = "/"; // ou /profil selon ton besoin
+            localStorage.setItem("user", JSON.stringify(result.user));
+            window.location.href = "/";
         } else {
             alert(result.error || "Erreur de connexion");
         }

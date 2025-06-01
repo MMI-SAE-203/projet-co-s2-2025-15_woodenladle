@@ -8,7 +8,6 @@ let success = "";
 let newPseudo = "";
 let newAvatarUrl = "";
 
-// Mise à jour profil (pseudo et/ou avatar)
 if (Astro.request.method === "POST") {
     const formData = await Astro.request.formData();
 
@@ -59,67 +58,44 @@ if (Astro.request.method === "POST") {
         <div id="login-section">
             <LoginForm />
         </div>
-
-        <div id="connected-section" class="hidden flex flex-col gap-6">
-            <h2 class="text-2xl font-bold">Mon compte</h2>
-            <p id="connected-email" class="text-lg"></p>
-            <img id="connected-avatar" class="w-24 h-24 rounded-full border" />
-
-            <!-- Formulaire pour modifier pseudo et avatar -->
-            <form
-                id="profile-form"
-                method="POST"
-                enctype="multipart/form-data"
-                class="flex flex-col gap-4"
+        
+        <div
+            id="login-title"
+            class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
+        >
+            <h1
+                class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
             >
-                <input type="hidden" name="action" value="update-profile" />
-                <input type="hidden" name="id" id="profile-user-id" />
-
-                <label>
-                    Nouveau pseudo :
-                    <input
-                        type="text"
-                        name="pseudo"
-                        id="pseudo-input"
-                        class="border px-2 py-1 rounded"
-                        autocomplete="off"
-                        value={newPseudo}
-                    />
-                </label>
-                <label>
-                    Nouvel avatar :
-                    <input type="file" name="avatar" accept="image/*" />
-                </label>
-                <button
-                    type="submit"
-                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                >
-                    Mettre à jour mon profil
-                </button>
-            </form>
+                Mon compte
+            </h1>
+        </div>
+        <div id="connected-section" class="hidden mt-10 flex flex-col mx-auto gap-6">
+            <img id="connected-avatar" class="w-24 h-24 mx-auto rounded-full border" />
+            <p id="connected-email" class="font-lilitaone text-xl"></p>
+            <p id="connected-pseudo" class="font-montserrat "></p>
 
             <button
                 id="logout-btn"
-                class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                class="font-lilitaone mt-5 uppercase text-lg text-red-600 border-red-600 hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px] hover:bg-black hover:text-white hover:bg-red-600 hover:text-white"
             >
                 Se déconnecter
             </button>
 
-            <!-- Suppression compte : submit le formulaire caché -->
             <form id="delete-account-form" method="POST" style="display:none;">
                 <input type="hidden" name="action" value="delete-account" />
                 <input type="hidden" name="id" id="delete-user-id" />
             </form>
             <button
                 id="delete-account-btn"
-                class="bg-red-800 text-white px-4 py-2 rounded hover:bg-red-900 transition"
+                class="font-lilitaone uppercase text-lg text-red-800 border-red-800 hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px] hover:bg-black hover:text-white hover:bg-red-800 hover:text-white"
             >
                 Supprimer mon compte
             </button>
         </div>
-
-        {success && <p class="text-green-600">{success}</p>}
-        {error && <p class="text-red-600">{error}</p>}
+        <div class="flex justify-center w-full my-4">
+            {success && <p class="text-green-600">{success}</p>}
+            {error && <p class="text-red-600">{error}</p>}
+        </div>
     </div>
 
     <script is:browser>
@@ -129,16 +105,12 @@ if (Astro.request.method === "POST") {
             const loginTitle = document.getElementById("login-title");
             const connectedSection = document.getElementById("connected-section");
             const connectedEmail = document.getElementById("connected-email");
+            const connectedPseudo = document.getElementById("connected-pseudo");
             const connectedAvatar = document.getElementById("connected-avatar");
             const logoutBtn = document.getElementById("logout-btn");
             const deleteAccountBtn = document.getElementById("delete-account-btn");
             const deleteAccountForm = document.getElementById("delete-account-form");
             const deleteUserId = document.getElementById("delete-user-id");
-
-            // Formulaire de maj du profil
-            const profileForm = document.getElementById("profile-form");
-            const pseudoInput = document.getElementById("pseudo-input");
-            const profileUserId = document.getElementById("profile-user-id");
 
             if (user?.email) {
                 // Affichage connecté
@@ -147,6 +119,7 @@ if (Astro.request.method === "POST") {
                 loginTitle.classList.add("hidden");
 
                 connectedEmail.textContent = "Connecté en tant que : " + user.email;
+                connectedPseudo.textContent = "Votre pseudo : " + user.pseudo;
                 if (user.avatar) {
                     connectedAvatar.src = `https://savoury-road.mathis-guellati.fr/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
                 }
