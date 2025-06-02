@@ -1,8 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import img from "../assets/img/accueil.webp?url";
 ---
 
 <Layout>
+    <Hero title="RETROUVEZ LA CUISINE DU MONDE CHEZ VOUS !"/>
+    <img src={img} alt="RETROUVEZ LA CUISINE DU MONDE CHEZ VOUS !">
     <div class="mt-250"></div>
 </Layout>
 

@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card_prod.astro";
 import Hero from "../../components/Hero.astro";
-import img from "../../assets/img/produits.webp";
+import img from "../../assets/img/produits.webp?url";
 
 import {
     allProduitSorted,
@@ -41,9 +41,9 @@ if (selectedRegion !== "Tout" || selectedCategorie !== "Tout") {
 <Layout>
     <Hero
         title="nos produits du monde, sélectionnés pour vous !"
-        image={img.src}
     />
-    <div class="mt-250 space-y-10">
+    <img src={img} alt="nos produits du monde, sélectionnés pour vous !">
+    <div class="mt-30 space-y-10">
         <div class="space-y-3 text-center">
             <h2
             class="text-5xl font-lilitaone text-white [-webkit-text-stroke:1.5px_black] uppercase"

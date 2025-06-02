@@ -2,15 +2,16 @@
 import Layout from "../../layouts/Layout.astro"
 import Card from "../../components/Card_recettes.astro";
 import Hero from "../../components/Hero.astro";
-import img from "../../assets/img/recettes.webp?url"; // ← Ajoutez ?url
+import img from "../../assets/img/recettes.webp?url";
 import { allRecettesSorted } from "../../../backend/backend.mjs";
 
 const rec = await allRecettesSorted();
 ---
 
 <Layout>
-    <Hero title="Les recettes du monde" image={img} />
-    <div class="relative mt-250 mb-20 space-y-20">
+    <Hero title="Les recettes du monde"/>
+    <img src={img} alt="Les recettes du monde">
+    <div class="relative mt-30 mb-20 space-y-20">
         <div class="flex justify-center">
             <p class="font-montserrat text-xl w-6/10">
                 Trouvez ici des <span class="font-bold">recettes faciles et authentiques</span> pour cuisiner avec vos <span class="font-bold">produits préférés</span>. Que ce soit un plat de chez vous ou une nouvelle découverte !

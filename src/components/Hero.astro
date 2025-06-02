@@ -1,27 +1,14 @@
 ---
-const { title, image } = Astro.props;
-import arrowUrl from "../assets/icons/arrow.svg?url"; // ← Ajoutez ?url pour cohérence
-console.log("Hero component loaded with title:", title, "and image:", image);
+const { title } = Astro.props;
 ---
 
-<div>
-    <div class="container mx-auto text-center relative">
+<div class="absolute top-4/10 left-20">
+    <div class="mx-auto text-center relative">
         <h1
             class="absolute z-5 top-1/2 text-[75px] w-250 uppercase text-start [-webkit-text-stroke:1px_black] font-lilitaone text-white mb-4 leading-20"
         >
             {title}
         </h1>
-        <!-- Utilisez directement l'import, Astro gère automatiquement le src -->
-        <img
-            src={image}
-            class="w-full absolute top-0 left-0 h-full object-cover object-center"
-        />
-        <img
-            id="scroll-down-arrow"
-            src={arrowUrl}
-            alt="Scroll down arrow"
-            class="absolute z-5 top-[80%] left-1/2 cursor-pointer hover:translate-y-3 transition"
-        />
     </div>
 </div>
 
