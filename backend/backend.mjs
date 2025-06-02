@@ -83,7 +83,9 @@ export async function Userauth(login, mdp) {
 
 export async function getOneRecette(id) {
     try {
-        let record = await pb.collection('Recettes').getOne(id);
+        let record = await pb.collection('Recettes').getOne(id, {
+            expand: 'etapes'
+        });
         record.img = pb.files.getURL(record, record.Image);
         return record;
     } catch (error) {
@@ -141,12 +143,78 @@ export async function deleteUser(id) {
     }
 }
 
-export async function updateUser(id, userData) {
+export async function ajouterRecette({
+    nom,
+    description,
+    image,
+    nbr_personne,
+    region,
+    ingredients,
+}) {
+    const data = {
+        Nom: nom,
+        Description: description,
+        nbr_personne: nbr_personne,
+        Region: region,
+        ingredients: ingredients || '',
+    };
+    if (image && image.size > 0) {
+        data.Image = image;
+    }
     try {
-        const updatedRecord = await pb.collection('users').update(id, userData);
-        return updatedRecord;
+        const record = await pb.collection('Recettes').create(data);
+        return record;
     } catch (error) {
-        console.error('Error updating user details:', error);
+        console.error('Erreur lors de l’ajout de la recette :', error);
+        throw error;
+    }
+}
+
+// Crée un record d'étapes
+export async function ajouterEtapeByRecette({
+    Etape_1,
+    Etape_2,
+    Etape_3,
+    Etape_4,
+    Etape_5,
+    Etape_6,
+    Etape_7,
+    Etape_8,
+    Etape_9,
+    Etape_10,
+    recette,
+}) {
+    const data = {
+        Etape_1: Etape_1 || '',
+        Etape_2: Etape_2 || '',
+        Etape_3: Etape_3 || '',
+        Etape_4: Etape_4 || '',
+        Etape_5: Etape_5 || '',
+        Etape_6: Etape_6 || '',
+        Etape_7: Etape_7 || '',
+        Etape_8: Etape_8 || '',
+        Etape_9: Etape_9 || '',
+        Etape_10: Etape_10 || '',
+        Recette: recette, // id de la recette
+    };
+    try {
+        const record = await pb.collection('Etapes').create(data);
+        return record;
+    } catch (error) {
+        console.error('Erreur lors de l’ajout de l’étape :', error);
+        throw error;
+    }
+}
+
+// Met à jour la recette avec la jointure des étapes
+export async function lierEtapesARecette(recetteId, etapesId) {
+    try {
+        const record = await pb.collection('Recettes').update(recetteId, {
+            etapes: [etapesId], // Attention : [etapesId] si c'est une relation multiple
+        });
+        return record;
+    } catch (error) {
+        console.error('Erreur lors de la liaison des étapes à la recette :', error);
         throw error;
     }
 }

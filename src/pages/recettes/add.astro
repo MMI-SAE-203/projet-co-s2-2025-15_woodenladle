@@ -1,0 +1,160 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { ajouterRecette, ajouterEtapeByRecette, lierEtapesARecette } from "../../../backend/backend.mjs";
+let success = "";
+let error = "";
+
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    try {
+        const recette = await ajouterRecette({
+            nom: formData.get("Nom"),
+            description: formData.get("Description"),
+            image: formData.get("Image"),
+            nbr_personne: formData.get("nbr_personne"),
+            region: formData.get("Region"),
+            ingredients: formData.get("ingredients"),
+        });
+
+        const etapesRecord = await ajouterEtapeByRecette({
+            Etape_1: formData.get("Etape_1"),
+            Etape_2: formData.get("Etape_2"),
+            Etape_3: formData.get("Etape_3"),
+            Etape_4: formData.get("Etape_4"),
+            Etape_5: formData.get("Etape_5"),
+            Etape_6: formData.get("Etape_6"),
+            Etape_7: formData.get("Etape_7"),
+            Etape_8: formData.get("Etape_8"),
+            Etape_9: formData.get("Etape_9"),
+            Etape_10: formData.get("Etape_10"),
+            recette: recette.id,
+        });
+
+        // 3. Lier l'id du record étapes à la recette
+        await lierEtapesARecette(recette.id, etapesRecord.id);
+
+        // Redirection PRG (Post/Redirect/Get)
+        return Astro.redirect("/ajout-recette?success=1", 303);
+    } catch (e) {
+        error = "Erreur lors de l'ajout de la recette et des étapes.";
+    }
+}
+
+// Message après redirection GET
+const url = new URL(Astro.request.url);
+if (url.searchParams.get("success")) {
+    success = "Recette ajoutée avec succès !";
+}
+---
+
+<Layout>
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-lg flex flex-col gap-4 mt-100"
+    >
+        <h2 class="text-2xl font-bold mb-2">Ajouter une recette</h2>
+
+        <label class="flex flex-col">
+            Nom de la recette
+            <input name="Nom" required class="input input-bordered mt-1" />
+        </label>
+
+        <label class="flex flex-col">
+            Description
+            <textarea
+                name="Description"
+                required
+                class="input input-bordered mt-1"></textarea>
+        </label>
+
+        <label class="flex flex-col">
+            Image
+            <input
+                type="file"
+                name="Image"
+                accept="image/*"
+                class="file-input file-input-bordered mt-1"
+            />
+        </label>
+
+        <label class="flex flex-col">
+            Nombre de personnes
+            <input
+                type="number"
+                min="1"
+                name="nbr_personne"
+                required
+                class="input input-bordered mt-1"
+            />
+        </label>
+
+        <label class="flex flex-col">
+            Région
+            <select
+                name="Region"
+                required
+                class="select select-bordered mt-1 w-full"
+            >
+                <option value="" disabled selected>Sélectionnez une région</option>
+                <option value="Afrique du Nord">Afrique du Nord</option>
+                <option value="Afrique Central">Afrique Central</option>
+                <option value="Europe Est">Europe Est</option>
+                <option value="Amerique Latine">Amerique Latine</option>
+                <option value="Asie du Sud Est">Asie du Sud Est</option>
+            </select>
+        </label>
+
+        <h3 class="font-bold mt-5 mb-2">Étapes de la recette</h3>
+        <label class="flex flex-col">
+            Étape 1
+            <input name="Etape_1" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 2
+            <input name="Etape_2" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 3
+            <input name="Etape_3" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 4
+            <input name="Etape_4" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 5
+            <input name="Etape_5" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 6
+            <input name="Etape_6" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 7
+            <input name="Etape_7" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 8
+            <input name="Etape_8" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 9
+            <input name="Etape_9" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Étape 10
+            <input name="Etape_10" class="input input-bordered mt-1" />
+        </label>
+        <label class="flex flex-col">
+            Ingrédients
+            <textarea name="ingredients" class="h-50 input input-bordered mt-1"></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary w-full mt-4">
+            Ajouter la recette
+        </button>
+    </form>
+    {success && <div class="text-green-700">{success}</div>}
+    {error && <div class="text-red-700">{error}</div>}
+</Layout>

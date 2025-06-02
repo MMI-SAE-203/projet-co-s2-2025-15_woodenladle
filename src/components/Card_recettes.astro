@@ -25,12 +25,12 @@ import ButtonVide from "../components/Button_vide.astro";
             <p class="font-montserrat text-[15px]"><span class="font-bold">Région : </span> {rec.Region}</p>
             <p class="font-montserrat text-[15px]"><span class="font-bold">Description : </span> {rec.Description}</p>
         </div>
-        <div class="absolute left-7/10">
-            <ButtonVide 
-                text="Retour aux produits"
-                link={`/recettes/${rec.id}`}
-                {...rec}
-                >
-        </div>
+    </div>
+    <div class="flex items-center justify-center mr-20">
+        <ButtonVide 
+            text="Accéder à la recette"
+            link={`/recettes/${rec.id}`}
+            {...rec}
+            >
     </div>
 </div>

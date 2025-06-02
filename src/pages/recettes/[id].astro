@@ -17,11 +17,20 @@ export async function getStaticPaths() {
 
 const { id } = Astro.params;
 const rec = await getOneRecette(id);
-const rawEtapes = await allEtapeByRecette(id);
 
-const etapes = rawEtapes[0];
+// Récupère les étapes expandues (soit tableau, soit objet selon ton schéma PB)
+let safeEtapes = {};
+if (rec && rec.expand && rec.expand.etapes) {
+    if (Array.isArray(rec.expand.etapes) && rec.expand.etapes.length > 0) {
+        // Si relation multiple, prends le premier record (si besoin tu peux boucler)
+        safeEtapes = rec.expand.etapes[0];
+    } else if (typeof rec.expand.etapes === "object") {
+        // Si single relation
+        safeEtapes = rec.expand.etapes;
+    }
+}
 
-const listeEtapes = Object.entries(etapes)
+const listeEtapes = Object.entries(safeEtapes)
     .filter(([key, val]) => key.startsWith("Etape_") && val)
     .sort(([a], [b]) => {
         const numA = parseInt(a.split("_")[1], 10);
@@ -32,6 +41,11 @@ const listeEtapes = Object.entries(etapes)
 if (!rec) {
     return Astro.redirect("/404");
 }
+
+
+
+
+
 ---
 
 <Layout>
