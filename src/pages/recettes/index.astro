@@ -2,15 +2,14 @@
 import Layout from "../../layouts/Layout.astro"
 import Card from "../../components/Card_recettes.astro";
 import Hero from "../../components/Hero.astro";
-import img from "../../assets/img/recettes.webp";
-
+import img from "../../assets/img/recettes.webp?url"; // ← Ajoutez ?url
 import { allRecettesSorted } from "../../../backend/backend.mjs";
 
 const rec = await allRecettesSorted();
 ---
 
 <Layout>
-    <Hero title="Les recettes du monde" image={img.src} />
+    <Hero title="Les recettes du monde" image={img} />
     <div class="relative mt-250 mb-20 space-y-20">
         <div class="flex justify-center">
             <p class="font-montserrat text-xl w-6/10">
@@ -20,5 +19,19 @@ const rec = await allRecettesSorted();
         <div class="flex flex-col justify-center space-y-15">
             {rec.map((rec) => <Card {...rec} />)}
         </div>
+        <button
+            id="add-recipe-button"
+            class="font-lilitaone uppercase text-lg text-green border-green hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px] hover:bg-black hover:text-white hover:bg-green hover:text-white">Ajouter une recette
+        </button>
     </div>
+
 </Layout>
+
+<script is:browser>
+    window.addEventListener("DOMContentLoaded", () => {
+        const Add = document.getElementById("add-recipe-button");
+
+        if (user?.email) {
+            Add.classList.add("hidden");
+            
+</script>

@@ -1,6 +1,6 @@
 ---
 const { title, image } = Astro.props;
-import arrowUrl from "../assets/icons/arrow.svg";
+import arrowUrl from "../assets/icons/arrow.svg?url"; // ← Ajoutez ?url pour cohérence
 console.log("Hero component loaded with title:", title, "and image:", image);
 ---
 
@@ -11,6 +11,7 @@ console.log("Hero component loaded with title:", title, "and image:", image);
         >
             {title}
         </h1>
+        <!-- Utilisez directement l'import, Astro gère automatiquement le src -->
         <img
             src={image}
             class="w-full absolute top-0 left-0 h-full object-cover object-center"

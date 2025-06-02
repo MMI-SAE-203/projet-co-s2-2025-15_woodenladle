@@ -8,6 +8,7 @@ let success = "";
 let newPseudo = "";
 let newAvatarUrl = "";
 
+// Mise à jour profil (pseudo et/ou avatar)
 if (Astro.request.method === "POST") {
     const formData = await Astro.request.formData();
 
@@ -55,28 +56,31 @@ if (Astro.request.method === "POST") {
                 Se connecter
             </h1>
         </div>
-        <div id="login-section">
+        <div id="login-section" class="mt-20 mb-10">
             <LoginForm />
         </div>
         
-        <div
-            id="login-title"
-            class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
-        >
-            <h1
-                class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
+        <div id="connected-section" class="w-full hidden mt-10 flex flex-col mx-auto gap-6">
+            <div
+                class="h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
             >
-                Mon compte
-            </h1>
-        </div>
-        <div id="connected-section" class="hidden mt-10 flex flex-col mx-auto gap-6">
-            <img id="connected-avatar" class="w-24 h-24 mx-auto rounded-full border" />
-            <p id="connected-email" class="font-lilitaone text-xl"></p>
-            <p id="connected-pseudo" class="font-montserrat "></p>
+                <h1
+                    class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
+                >
+                    Mon compte
+                </h1>
+            </div>
+            <div class="mx-auto mt-10 space-y-10">
+                <img id="connected-avatar" class="w-24 h-24 mx-auto rounded-full border" />
+                <div class="space-y-4">
+                    <p id="connected-email" class="font-lilitaone text-xl"></p>
+                    <p id="connected-pseudo" class="font-montserrat"></p>
+                </div>
+            </div>
 
             <button
                 id="logout-btn"
-                class="font-lilitaone mt-5 uppercase text-lg text-red-600 border-red-600 hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px] hover:bg-black hover:text-white hover:bg-red-600 hover:text-white"
+                class="mt-10 font-lilitaone uppercase text-lg border-red-600 text-red-600 hover:bg-red-600 hover:text-white hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px]"
             >
                 Se déconnecter
             </button>
@@ -87,7 +91,7 @@ if (Astro.request.method === "POST") {
             </form>
             <button
                 id="delete-account-btn"
-                class="font-lilitaone uppercase text-lg text-red-800 border-red-800 hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px] hover:bg-black hover:text-white hover:bg-red-800 hover:text-white"
+                class="font-lilitaone uppercase text-lg border-red-800 text-red-800 hover:bg-red-800 hover:text-white hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px]"
             >
                 Supprimer mon compte
             </button>
@@ -112,6 +116,11 @@ if (Astro.request.method === "POST") {
             const deleteAccountForm = document.getElementById("delete-account-form");
             const deleteUserId = document.getElementById("delete-user-id");
 
+            // Formulaire de maj du profil
+            const profileForm = document.getElementById("profile-form");
+            const pseudoInput = document.getElementById("pseudo-input");
+            const profileUserId = document.getElementById("profile-user-id");
+
             if (user?.email) {
                 // Affichage connecté
                 loginSection.classList.add("hidden");
@@ -119,7 +128,7 @@ if (Astro.request.method === "POST") {
                 loginTitle.classList.add("hidden");
 
                 connectedEmail.textContent = "Connecté en tant que : " + user.email;
-                connectedPseudo.textContent = "Votre pseudo : " + user.pseudo;
+                connectedPseudo.textContent = "Nom d'utilisateur : " + user.pseudo;
                 if (user.avatar) {
                     connectedAvatar.src = `https://savoury-road.mathis-guellati.fr/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
                 }

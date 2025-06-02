@@ -1,7 +1,40 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-    
+    <div class="mt-250"></div>
 </Layout>
+
+<script>
+    const toggle = document.querySelector("#menu-btn");
+    const nav = document.querySelector("#menu");
+    const page = document.body;
+    const header = document.querySelector("#header");
+
+    if (toggle && nav) {
+        toggle.addEventListener("click", () => {
+            const isOpen = toggle.ariaExpanded === "true";
+            const isClosed = !isOpen;
+            // Mise à jour des attributs ARIA pour accessibilité
+            toggle.ariaExpanded = String(isClosed);
+            nav.ariaHidden = String(isOpen);
+            page.classList.toggle("noscroll", isClosed);
+        });
+    }
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > lastScrollY) {
+            header.style.transform = "translateY(-100%)";
+        } else {
+            header.style.transform = "translateY(0)";
+        }
+        lastScrollY = window.scrollY;
+    });
+
+    const noscroll = document.createElement("style");
+    noscroll.innerHTML = "body.noscroll { overflow: hidden; }";
+    document.head.appendChild(noscroll);
+</script>
