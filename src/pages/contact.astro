@@ -2,8 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import { addMessage } from "../../backend/backend.mjs";
 import Lampe from "../assets/icons/lighton.svg?url";
-import btn from "../components/Button_vide.astro";
-
 let success = false;
 let error = "";
 
@@ -18,13 +16,18 @@ if (Astro.request.method === "POST") {
         error = "Tous les champs sont requis.";
     } else {
         try {
-            await addMessage({nom, email, message });
-            success = true;
+            await addMessage({ nom, email, message });
+            return Astro.redirect("/contact?success=1", 303);
         } catch (e) {
-            console.error("[Erreur addMessage]", e);
             error = "Une erreur est survenue.";
         }
     }
+}
+
+// GET : message de succès
+const url = new URL(Astro.request.url);
+if (url.searchParams.get("success")) {
+    success = true;
 }
 ---
 
@@ -49,18 +52,11 @@ if (Astro.request.method === "POST") {
     
             {
                 success && (
-                    <>
-                        <p class="mb-4 text-green-600 text-center">
-                            Message envoyé avec succès ✅
-                        </p>
-                        <script>
-                            setTimeout(() => window.location.href = '/contact',
-                            1500);
-                        </script>
-                    </>
+                    <p class="mb-4 text-green-600 text-center">
+                        Message envoyé avec succès ✅
+                    </p>
                 )
             }
-    
             {error && <p class="mb-4 text-red-600 text-center">{error}</p>}
     
     

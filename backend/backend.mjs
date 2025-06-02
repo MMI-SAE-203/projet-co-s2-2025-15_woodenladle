@@ -218,3 +218,18 @@ export async function lierEtapesARecette(recetteId, etapesId) {
         throw error;
     }
 }
+
+export async function addMessage({ nom, email, message }) {
+    const data = {
+        nom: nom,
+        email: email,
+        message: message,
+    };
+    try {
+        const record = await pb.collection('contact').create(data);
+        return record;
+    } catch (error) {
+        console.error('Erreur lors de l’ajout du message :', error);
+        throw error;
+    }
+}
