@@ -20,9 +20,9 @@ import ButtonVide from "../components/Button_vide.astro";
 }`}>
     <img src={rec.img} alt={rec.Nom} class="rounded-l-2xl w-75" />
     <div class="space-y-8 p-4 pl-6">
-        <p class="font-lilitaone text-2xl">Couscous aux légumes</p>
+        <p class="font-lilitaone text-2xl">{rec.Nom}</p>
         <div class="space-y-4 w-6/10">
-            <p class="font-montserrat text-[15px]"><span class="font-bold">Description : </span> {rec.Region}</p>
+            <p class="font-montserrat text-[15px]"><span class="font-bold">Région : </span> {rec.Region}</p>
             <p class="font-montserrat text-[15px]"><span class="font-bold">Description : </span> {rec.Description}</p>
         </div>
         <div class="absolute left-7/10">
