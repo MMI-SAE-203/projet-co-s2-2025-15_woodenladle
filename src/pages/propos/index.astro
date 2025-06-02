@@ -8,6 +8,7 @@ import AmeriqueLatine from "../../assets/img/AmeriqueLatine.webp?url";
 import AsieEst from "../../assets/img/AsieEst.webp?url";
 import EuropeEst from "../../assets/img/EuropeEst.webp?url";
 import Orient from "../../assets/img/Orient.webp?url";
+import ButtonVide from "../../components/Button_vide.astro";
 ---
 
 <Layout>
@@ -20,7 +21,7 @@ import Orient from "../../assets/img/Orient.webp?url";
                 Chez <span class="font-bold">Savoury Road</span>, notre mission est de vous ramener chez vous les saveurs et les produits locaux de votre pays d'origine ou de vous faire découvrir ceux d'ailleurs. Fondée par trois associés passionnés de culture et de gastronomie, notre boutique en ligne récemment lancée se spécialise dans <span class="font-bold">la sélection</span> et <span class="font-bold">la distribution</span> de <span class="font-bold">produits locaux authentiques</span>  provenant de <span class="font-bold">six régions du monde</span> :
             </p>
         </div>
-        <div class="relative flex flex-col mt-30 mb-20 space-y-20">
+        <div class="relative flex flex-col mt-30 space-y-20">
             <div class="grid grid-cols-3 mx-50 space-y-30">
                 <div>
                     <img src={AfriqueNord} class="mx-auto h-65" />
@@ -48,14 +49,21 @@ import Orient from "../../assets/img/Orient.webp?url";
                     <a href="../produits" class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-green text-green border-3 flex justify-center items-center h-[50px] w-[200px]">moyen orient</a>
                 </div>
             </div>
-            <div class="relative flex flex-col mt-30 mb-20 space-y-20">
-                <div class="flex justify-center">
-                    <p class="font-montserrat text-xl w-6/10">
+            <div class="relative flex flex-col mb-20 space-y-20">
+                <div class="flex flex-col space-y-15">
+                    <p class="font-montserrat mx-auto text-xl w-6/10">
                         <span class="font-bold">Nous proposons une large gamme de boissons et de nourritures traditionnelles</span> qui vous permettront de retrouver les goûts de votre enfance ou de découvrir de nouvelles saveurs. Chaque produit que nous sélectionnons est soigneusement choisi pour son <span class="font-bold">authenticité</span> et sa <span class="font-bold">qualité</span>, afin de vous offrir une <span class="font-bold">expérience culinaire unique et authentique.</span>
                     </p>
-                    <p class="font-montserrat text-xl w-6/10">
+                    <p class="font-montserrat mx-auto text-xl w-6/10">
                         <span class="font-bold">saveurs</span>Que vous soyez un expatrié nostalgique des  de <span class="font-bold">votre terre natale</span>, un gourmet en quête de nouvelles <span class="font-bold">expériences</span>, ou simplement un amateur de produits locaux, <span class="font-bold">Savoury Road</span> est votre destination pour vivre une aventure culinaire à travers le monde.
                     </p>
+                    <p class="font-montserrat mx-auto text-xl w-6/10">
+                        <span class="font-bold">Rejoignez-nous</span> dans cette <span class="font-bold">aventure gastronomique</span> et laissez <span class="font-bold">Savoury Road</span> vous transporter à travers les saveurs du monde.
+                    </p>
                 </div>
+            </div>
+            <div class="flex justify-center">
+                <a href="../register" class="font-lilitaone uppercase border-green text-green text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]">Nous rejoindre</a>
+            </div>
         </div>
 </Layout>
