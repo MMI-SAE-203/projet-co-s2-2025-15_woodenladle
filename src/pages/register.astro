@@ -19,6 +19,8 @@ if (Astro.request.method === "POST") {
     } catch (err) {
         error = err.message || "Erreur lors de l'inscription.";
     }
+
+    return Astro.redirect("/login", 303);
 }
 ---
 

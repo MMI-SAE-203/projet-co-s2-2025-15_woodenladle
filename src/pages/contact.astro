@@ -5,7 +5,6 @@ import Lampe from "../assets/icons/lighton.svg?url";
 let success = false;
 let error = "";
 
-// Traitement du POST
 if (Astro.request.method === "POST") {
     const formData = await Astro.request.formData();
     const nom = formData.get("nom");
@@ -24,7 +23,6 @@ if (Astro.request.method === "POST") {
     }
 }
 
-// GET : message de succès
 const url = new URL(Astro.request.url);
 if (url.searchParams.get("success")) {
     success = true;
@@ -44,9 +42,9 @@ if (url.searchParams.get("success")) {
     </div>
     <div class="flex justify-between mx-50 mt-15 mb-15">
         <div class="w-1/2 flex flex-col justify-center items-center space-y-10">
-            <p>Bienvenue sur notre page de contact ! Nous savons à quel point il est important pour vous d’obtenir des réponses rapides et précises. Que ce soit pour une question sur nos produits, une suggestion ou un besoin d’assistance, nous sommes là pour vous accompagner.</p>
+            <p>Bienvenue sur notre page de contact ! Nous savons à quel point il est important pour vous d'obtenir des réponses rapides et précises. Que ce soit pour une question sur nos produits, une suggestion ou un besoin d'assistance, nous sommes là pour vous accompagner.</p>
             <img src={Lampe} alt="">
-            <p>De plus, notre bot intelligent est également disponible pour répondre à vos questions en temps réel. Grâce à son fonctionnement basé sur l’Intelligence Artificielle, il peut vous guider dans votre recherche de produits ou dans l’utilisation de nos services.</p>
+            <p>De plus, notre bot intelligent est également disponible pour répondre à vos questions en temps réel. Grâce à son fonctionnement basé sur l'Intelligence Artificielle, il peut vous guider dans votre recherche de produits ou dans l'utilisation de nos services.</p>
         </div>
         <div class="">
     
