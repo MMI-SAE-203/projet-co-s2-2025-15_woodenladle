@@ -1,0 +1,57 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Card from "../../components/Card_recettes.astro";
+import Hero from "../../components/Hero.astro";
+import img from "../../assets/img/recettes.webp?url";
+import { allRecettesSorted } from "../../../backend/backend.mjs";
+
+const rec = await allRecettesSorted();
+---
+
+<Layout>
+    <Hero title="Les recettes du monde"/>
+    <img src={img} alt="Les recettes du monde">
+    <div class="relative mt-30 mb-20 space-y-20">
+        <div class="flex justify-center">
+            <p class="font-montserrat text-xl w-6/10">
+                Trouvez ici des <span class="font-bold">recettes faciles et authentiques</span> pour cuisiner avec vos <span class="font-bold">produits préférés</span>. Que ce soit un plat de chez vous ou une nouvelle découverte !
+            </p>
+        </div>
+        <div class="flex flex-col justify-center space-y-15">
+            {rec.map((rec) => <Card {...rec} />)}
+        </div>
+        <div class="space-y-10"
+            id="not-connected-section">
+            <p class="text-center font-montserrat text-2xl text-green">Connectez-vous pour ajouter une recette</p>
+            <a
+                href="/login"
+                class="font-lilitaone uppercase text-lg text-green border-green hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px] hover:bg-black hover:text-white hover:bg-green hover:text-white">se connecter
+            </a>
+        </div>
+        <div id="connected-section" class="hidden">
+            <a
+                href="/recettes/add"
+                class="font-lilitaone uppercase text-lg text-green border-green hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px] hover:bg-black hover:text-white hover:bg-green hover:text-white">Ajouter une recette
+            </a>
+        </div>
+    </div>
+
+</Layout>
+
+<script is:browser>
+    window.addEventListener("DOMContentLoaded", () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const connectedSection = document.getElementById("connected-section");
+        const notConnectedSection = document.getElementById("not-connected-section");
+        if (!user || !user.email) {
+            notConnectedSection.classList.remove("hidden");
+            connectedSection.classList.add("hidden");
+        } else {
+            notConnectedSection.classList.add("hidden");
+        }
+
+        if (user?.email) {
+            connectedSection.classList.remove("hidden");
+        }
+    });
+</script>

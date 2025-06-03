@@ -1,0 +1,157 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LoginForm from "../components/LoginForm.astro";
+import { deleteUser, updateUser } from "../../backend/backend.mjs";
+
+let error = "";
+let success = "";
+let newPseudo = "";
+let newAvatarUrl = "";
+
+// Mise à jour profil (pseudo et/ou avatar)
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+
+    if (formData.get("action") === "update-profile") {
+        try {
+            const id = formData.get("id");
+            const pseudo = formData.get("pseudo");
+            const avatar = formData.get("avatar");
+            const userData = {};
+            if (pseudo) userData.pseudo = pseudo;
+            if (avatar && avatar.size > 0) userData.avatar = avatar;
+
+            const updated = await updateUser(id, userData);
+            success = "Profil mis à jour !";
+            newPseudo = updated.pseudo || "";
+            newAvatarUrl = updated.avatar
+                ? `https://savoury-road.mathis-guellati.fr/api/files/users/${updated.id}/${updated.avatar}?thumb=100x100`
+                : "";
+        } catch (e) {
+            error = "Erreur lors de la mise à jour du profil.";
+        }
+    }
+
+    // Suppression de compte
+    if (formData.get("action") === "delete-account") {
+        try {
+            await deleteUser(formData.get("id"));
+            success = "Compte supprimé !";
+        } catch (e) {
+            error = "Erreur lors de la suppression du compte.";
+        }
+    }
+}
+---
+
+<Layout>
+    <div class="flex flex-col gap-6 text-black">
+        <div
+            id="login-title"
+            class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
+        >
+            <h1
+                class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
+            >
+                Se connecter
+            </h1>
+        </div>
+        <div id="login-section" class="mt-20 mb-10">
+            <LoginForm />
+        </div>
+        
+        <div id="connected-section" class="w-full hidden mt-10 flex flex-col mx-auto gap-6">
+            <div
+                class="h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
+            >
+                <h1
+                    class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
+                >
+                    Mon compte
+                </h1>
+            </div>
+            <div class="mx-auto mt-10 space-y-10">
+                <img id="connected-avatar" class="w-24 h-24 mx-auto rounded-full border" />
+                <div class="space-y-4">
+                    <p id="connected-email" class="font-lilitaone text-xl"></p>
+                    <p id="connected-pseudo" class="font-montserrat"></p>
+                </div>
+            </div>
+
+            <button
+                id="logout-btn"
+                class="mt-10 font-lilitaone uppercase text-lg border-red-600 text-red-600 hover:bg-red-600 hover:text-white hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px]"
+            >
+                Se déconnecter
+            </button>
+
+            <form id="delete-account-form" method="POST" style="display:none;">
+                <input type="hidden" name="action" value="delete-account" />
+                <input type="hidden" name="id" id="delete-user-id" />
+            </form>
+            <button
+                id="delete-account-btn"
+                class="font-lilitaone uppercase text-lg border-red-800 text-red-800 hover:bg-red-800 hover:text-white hover:w-[300px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[250px]"
+            >
+                Supprimer mon compte
+            </button>
+        </div>
+        <div class="flex justify-center w-full my-4">
+            {success && <p class="text-green-600">{success}</p>}
+            {error && <p class="text-red-600">{error}</p>}
+        </div>
+    </div>
+
+    <script is:browser>
+        window.addEventListener("DOMContentLoaded", () => {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const loginSection = document.getElementById("login-section");
+            const loginTitle = document.getElementById("login-title");
+            const connectedSection = document.getElementById("connected-section");
+            const connectedEmail = document.getElementById("connected-email");
+            const connectedPseudo = document.getElementById("connected-pseudo");
+            const connectedAvatar = document.getElementById("connected-avatar");
+            const logoutBtn = document.getElementById("logout-btn");
+            const deleteAccountBtn = document.getElementById("delete-account-btn");
+            const deleteAccountForm = document.getElementById("delete-account-form");
+            const deleteUserId = document.getElementById("delete-user-id");
+
+            // Formulaire de maj du profil
+            const profileForm = document.getElementById("profile-form");
+            const pseudoInput = document.getElementById("pseudo-input");
+            const profileUserId = document.getElementById("profile-user-id");
+
+            if (user?.email) {
+                // Affichage connecté
+                loginSection.classList.add("hidden");
+                connectedSection.classList.remove("hidden");
+                loginTitle.classList.add("hidden");
+
+                connectedEmail.textContent = "Connecté en tant que : " + user.email;
+                connectedPseudo.textContent = "Nom d'utilisateur : " + user.pseudo;
+                if (user.avatar) {
+                    connectedAvatar.src = `https://savoury-road.mathis-guellati.fr/api/files/users/${user.id}/${user.avatar}?thumb=100x100`;
+                }
+                if (user.pseudo && pseudoInput) {
+                    pseudoInput.value = user.pseudo;
+                }
+                if (profileUserId) {
+                    profileUserId.value = user.id;
+                }
+
+                // Déconnexion
+                logoutBtn.addEventListener("click", () => {
+                    localStorage.removeItem("user");
+                    window.location.reload();
+                });
+
+                deleteAccountBtn.addEventListener("click", () => {
+                    const confirmed = confirm("Es-tu sûr de vouloir supprimer ton compte ?");
+                    if (!confirmed) return;
+                    deleteUserId.value = user.id;
+                    deleteAccountForm.submit();
+                });
+            }
+        });
+    </script>
+</Layout>
