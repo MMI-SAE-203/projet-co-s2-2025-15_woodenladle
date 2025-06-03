@@ -23,17 +23,8 @@ function addMessageToChat(content, role) {
 async function sendMessage(userMessage) {
     userInput.disabled = true;
     sendButton.disabled = true;
-    statusIndicator.textContent = "Réponse en cours";
-    const loadingAnimation = setInterval(() => {
-        if (statusIndicator.textContent === "Réponse en cours...") {
-            statusIndicator.textContent = "Réponse en cours";
-        } else {
-            statusIndicator.textContent += ".";
-        }
-    }, 500);
+    statusIndicator.textContent = "Réponse en cours...";
     
-    window.currentLoadingAnimation = loadingAnimation;
-
     const prompt =
         messages.map((m) => `<|${m.role}|>\n${m.content}`).join("\n") +
         "\n<|assistant|>\n";
@@ -67,7 +58,7 @@ async function sendMessage(userMessage) {
             addMessageToChat(answer, "assistant");
         }
     } catch (err) {
-        addMessageToChat("Erreur de réseau ou d’authentification.", "assistant");
+        addMessageToChat("Erreur de réseau ou d'authentification.", "assistant");
         console.error(err);
     } finally {
         statusIndicator.textContent = "";

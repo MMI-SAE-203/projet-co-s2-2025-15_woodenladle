@@ -13,6 +13,9 @@ import { allRecettesSorted } from "../../backend/backend.mjs";
 import CarouselRecette from "../components/Carousel_recette.astro";
 import Arrow from "../assets/icons/arrow.svg?url";
 import Button from "../components/Button_vide.astro";
+import Mathis from "../assets/img/mathis.webp?url";
+import Valentine from "../assets/img/valentine.webp?url";
+import Ethan from "../assets/img/ethan.webp?url";
 
 const rec = await allRecettesSorted();
 ---
@@ -129,9 +132,9 @@ const rec = await allRecettesSorted();
             </div>
         </div>
         <div class="relative flex flex-col mt-10 lg:mt-5 mb-20 space-y-20">
-            <h1 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
+            <h2 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
                 QUELQUE RECETTES TRADITIONELLES
-            </h1>
+            </h2>
             <div class="flex justify-center">
                 <p class="font-montserrat text-2lg lg:text-xl w-8/10 lg:w-6/10">
                     Découvrez des <span class="font-bold"
@@ -146,23 +149,20 @@ const rec = await allRecettesSorted();
             </div>
         </div>
         <div class="relative w-full">
-            <div
-                id="carousel"
-                class="flex overflow-x-auto gap-4 scroll-smooth no-scrollbar px-8"
-            >
+            <a href="/recettes" id="carousel" class="flex overflow-x-auto gap-4 scroll-smooth no-scrollbar px-8">
                 {rec.slice(0,5).map((rec) => <CarouselRecette {...rec} />)}
-            </div>
+            </a>
             <div class="flex justify-center mb-10 gap-10 mt-7">
                 <button
                     id="carousel-left"
-                    class="z-10 bg-white rounded-full shadow px-2 py-1"
+                    class="z-10 bg-white cursor-pointer rounded-full shadow px-2 py-1"
                     aria-label="Précédent"
                 >
                     <img src={Arrow} class="rotate-90 scale-30" alt="bouton précédent" />
                 </button>
                 <button
                     id="carousel-right"
-                    class="z-10 bg-white/80 rounded-full shadow px-2 py-1"
+                    class="z-10 bg-white cursor-pointer rounded-full shadow px-2 py-1"
                     aria-label="Suivant"
                 >
                 <img src={Arrow} class="-rotate-90 scale-30" alt="bouton précédent" />
@@ -173,7 +173,90 @@ const rec = await allRecettesSorted();
                 link="/recettes"
             />
         </div>
-
+        <div class="relative flex flex-col mt-10 lg:mt-5 mb-20 space-y-20">
+            <h2 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
+                Beosin d'aide ?
+            </h2>
+            <div class="flex space-y-5 flex-col justify-center">
+                <p class="font-montserrat mx-auto text-2lg lg:text-xl w-8/10 lg:w-6/10">
+                    <span class="font-bold">SR Bot</span
+                    > est à vos côtés pour vous guider tout au long de votre découverte des produits du monde. Vous pouvez lui <span class="font-bold">demander des détails</span> sur n'importe quel produit, <span class="font-bold">découvrir les récits fascinants</span> qui se cachent derrière chaque article ou <span class="font-bold">obtenir des recommandations sur mesure</span> en fonction de vos goûts personnels.
+                </p>
+                <p class="font-montserrat mx-auto text-2lg lg:text-xl w-8/10 lg:w-6/10">
+                    Que vous <span class="font-bold">cherchiez un produit précis</span> ou que vous <span class="font-bold">vouliez simplement découvrir de nouvelles possibilités</span>, SR Bot est là pour vous accompagner et rendre chaque expérience d'achat plus enrichissante et intuitive.
+                </p>
+            </div>
+            <Button
+                text="Découvrir SR Bot"
+                link="/chat"
+            />
+        </div>
+        <div class="relative flex flex-col mt-10 lg:mt-5 mb-20 space-y-20">
+            <h2 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
+                Nous rejoindre
+            </h2>
+            <div class="flex space-y-5 flex-col justify-center">
+                <p class="font-montserrat mx-auto text-2lg lg:text-xl w-8/10 lg:w-6/10">
+                    <span class="font-bold">En nous rejoignant</span
+                    > , vous pourrez <span class="font-bold">proposer vos propres recettes</span> et enrichir notre sélection avec <span class="font-bold">vos spécialités favorites</span>.
+                </p>
+            </div>
+            <Button
+                text="Se connecter"
+                link="/login"
+            />
+        </div>
+        <div class="relative flex flex-col mt-10 lg:mt-5 mb-20 space-y-20">
+            <h2 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
+                Des prix accessibles
+            </h2>
+            <div class="flex space-y-5 flex-col justify-center">
+                <p class="font-montserrat mx-auto text-2lg lg:text-xl w-8/10 lg:w-6/10">
+                    Nous redirigeons nos utilisateurs vers des sites commerçants <span class="font-bold">soigneusement sélectionnés</span>, garantissant des <span class="font-bold">prix bas</span> pour une expérience d'achat économique et accessible. En mettant l'accent sur <span class="font-bold">la qualité</span> et l'accessibilité, nous facilitons la découverte de saveurs exotiques <span class="font-bold">sans dépasser votre budget</span>.
+                </p>
+            </div>
+        </div>
+        <div class="relative flex flex-col mt-10 lg:mt-5 mb-20 space-y-20">
+            <h2 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
+                Nos avantages
+            </h2>
+            <div class="flex space-y-5 flex-col justify-center">
+                <p class="font-montserrat mx-auto text-2lg lg:text-xl w-8/10 lg:w-6/10">
+                    <span class="font-bold">Nos avantages distinctifs :</span>,  Grâce à un bot alimenté par une Intelligence Artificielle, <span class="font-bold">nous accompagnons chaque utilisateur dans sa sélection de produits</span> en fonction de ses besoins spécifiques. Ce bot intuitif simplifie la recherche et propose des recommandations personnalisées. De plus, nous offrons <span class="font-bold">une page dédiée aux recettes traditionnelles des régions que nous couvrons</span>, permettant à nos visiteurs de découvrir et recréer les plats emblématiques de chaque culture.
+                </p>
+            </div>
+        </div>
+        <div class="relative flex flex-col mt-10 lg:mt-5 mb-20 space-y-20">
+            <h2 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
+                Notre équipe
+            </h2>
+            <div class="flex flex-col lg:grid lg:grid-cols-3 font-montserrat space-y-20">
+                <div class="space-y-5 flex flex-col items-center">
+                    <img src={Valentine} alt="Valentine GUILLOT" class="w-40 h-40">
+                    <div class="space-y-2 text-center">
+                        <p class="">Valentine GUILLOT</p>
+                        <p class="text-pink font-bold text-xl">Designeuse</p>
+                        <p>valentine.guillot@edu.univ-fcomte.fr</p>
+                    </div>
+                </div>
+                <div class="space-y-5 flex flex-col items-center">
+                    <img src={Mathis} alt="Mathis GUELLATI" class="w-40 h-40">
+                    <div class="space-y-2 text-center">
+                        <p class="">Mathis GUELLATI</p>
+                        <p class="text-pink font-bold text-xl">Développeur</p>
+                        <p>mathis.guellati@edu.univ-fcomte.fr</p>
+                    </div>
+                </div>
+                <div class="space-y-5 flex flex-col items-center">
+                    <img src={Ethan} alt="Ethan HENNEQUIN-DE-MEYER" class="w-40 h-40">
+                    <div class="space-y-2 text-center">
+                        <p class="">Ethan HENNEQUIN-DE-MEYER</p>
+                        <p class="text-pink font-bold text-xl">Communicant</p>
+                        <p class="w-2/3 mx-auto">ethan.hennequin--de_meyer@edu.univ-fcomte.fr</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <style>
@@ -194,7 +277,6 @@ const rec = await allRecettesSorted();
         const btnLeft = document.getElementById("carousel-left");
         const btnRight = document.getElementById("carousel-right");
         function getScrollStep() {
-            // On prend la largeur réelle d'une card + le gap (16px si gap-4)
             const card = carousel?.children[0];
             if (!card) return 200;
             const style = window.getComputedStyle(carousel);
@@ -213,7 +295,6 @@ const rec = await allRecettesSorted();
             toggle.addEventListener("click", () => {
                 const isOpen = toggle.ariaExpanded === "true";
                 const isClosed = !isOpen;
-                // Mise à jour des attributs ARIA pour accessibilité
                 toggle.ariaExpanded = String(isClosed);
                 nav.ariaHidden = String(isOpen);
                 page.classList.toggle("noscroll", isClosed);

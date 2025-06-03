@@ -2,9 +2,12 @@
 const { ...rec } = Astro.props;
 ---
 
-<div class="relative h-[150px] min-w-[200px] max-w-[200px] lg:h-[300px] lg:min-w-[300px] lg:max-w-[300px] border-2 rounded-2xl bg-black overflow-hidden">
+<div class="relative h-[150px] min-w-[200px] max-w-[200px] lg:h-[300px] lg:min-w-[500px] lg:max-w-[500px] border-2 rounded-2xl bg-black overflow-hidden">
     <img src={rec.img} alt={rec.Nom} class="h-[140px] w-full lg:h-[290px] rounded-2xl opacity-50 object-cover" />
     <div class="absolute bottom-2 left-2 bg-white px-2 py-0.5 rounded">
-        <p class="font-montserrat text-xs text-black">{rec.Nom}</p>
+        <p class="font-lilitaone text-xs lg:text-xl text-black">{rec.Nom}</p>
+    </div>
+    <div class="absolute top-2 right-2 bg-white px-2 py-0.5 rounded">
+        <p class="font-montserrat text-xs text-black"> pour : {rec.nbr_personne} personnes</p>
     </div>
 </div>
