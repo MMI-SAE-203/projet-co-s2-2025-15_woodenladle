@@ -50,7 +50,7 @@ Ajouter une recette
 Nom de la recette
 <input name="Nom" required class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat"> </label> <label class="flex flex-col font-lilitaone">
 Région
-<select name="Region" required class="w-3/4 px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat"> <option value="" disabled selected>Sélectionnez une région</option> <option value="Afrique du Nord">Afrique du Nord</option> <option value="Afrique Central">Afrique Central</option> <option value="Europe Est">Europe Est</option> <option value="Amerique Latine">Amerique Latine</option> <option value="Asie du Sud Est">Asie du Sud Est</option> </select> </label> <label class="flex flex-col font-lilitaone">
+<select name="Region" required class="w-3/4 px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat"> <option value="" disabled selected>Sélectionnez une région</option> <option value="Afrique du Nord">Afrique du Nord</option> <option value="Afrique Central">Afrique Central</option> <option value="Europe">Europe Est</option> <option value="Amerique Latine">Amerique Latine</option> <option value="Asie du Sud Est">Asie du Sud Est</option> </select> </label> <label class="flex flex-col font-lilitaone">
 Description
 <textarea name="Description" required class="bg-gray-100 border-2 rounded-2xl h-60 font-montserrat py-4"></textarea> </label> <label class="flex flex-col font-lilitaone">
 Ingrédients
