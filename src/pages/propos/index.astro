@@ -8,7 +8,6 @@ import AmeriqueLatine from "../../assets/img/AmeriqueLatine.webp?url";
 import AsieEst from "../../assets/img/AsieEst.webp?url";
 import EuropeEst from "../../assets/img/EuropeEst.webp?url";
 import Orient from "../../assets/img/Orient.webp?url";
-import ButtonVide from "../../components/Button_vide.astro";
 ---
 
 <Layout>
@@ -24,28 +23,28 @@ import ButtonVide from "../../components/Button_vide.astro";
         <div class="relative flex flex-col mt-30 space-y-20">
             <div class="grid grid-cols-3 mx-50 space-y-30">
                 <div>
-                    <img src={AfriqueNord} class="mx-auto h-65" />
+                    <img src={AfriqueNord} class="mx-auto h-65" alt="Afrique du Nord" />
                     <a href="../produits" class="font-lilitaone border-
                     border-yellow text-yellow uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]">afrique du nord</a>
                 </div>
                 <div>
-                    <img src={AmeriqueCentrale} class="mx-auto h-65" />
+                    <img src={AmeriqueCentrale} class="mx-auto h-65" alt="Amerique Centrale"/>
                     <a href="../produits" class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all border-orange text-orange cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]"> amerique centrale</a>
                 </div>
                 <div>
-                    <img src={AmeriqueLatine} class="mx-auto h-65" />
+                    <img src={AmeriqueLatine} class="mx-auto h-65" alt="Amerique Latine"/>
                     <a href="../produits" class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer border-red text-red mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]">amerique latine</a>
                 </div>
                 <div>
-                    <img src={AsieEst} class="mx-auto h-65" />
+                    <img src={AsieEst} class="mx-auto h-65" alt="Asie de l'Est"/>
                     <a href="../produits" class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer border-pink text-pink mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]"> asie du sud est</a>
                 </div>
                 <div>
-                    <img src={EuropeEst} class="mx-auto h-65" />
+                    <img src={EuropeEst} class="mx-auto h-65" alt="Europe de l'Est"/>
                     <a href="../produits" class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto border-purple text-purple rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]">europe de l'est</a>
                 </div>
                 <div>
-                    <img src={Orient} class="mx-auto h-65" />
+                    <img src={Orient} class="mx-auto h-65" alt="Orient"/>
                     <a href="../produits" class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-green text-green border-3 flex justify-center items-center h-[50px] w-[200px]">moyen orient</a>
                 </div>
             </div>

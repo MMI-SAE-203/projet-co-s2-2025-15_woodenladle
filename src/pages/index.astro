@@ -2,43 +2,237 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import img from "../assets/img/accueil.webp?url";
+import img_mobile from "../assets/img/accueil_mobile.webp?url";
+import AfriqueNord from "../assets/img/AfriqueNord.webp?url";
+import AmeriqueCentrale from "../assets/img/AmeriqueCentrale.webp?url";
+import AmeriqueLatine from "../assets/img/AmeriqueLatine.webp?url";
+import AsieEst from "../assets/img/AsieEst.webp?url";
+import EuropeEst from "../assets/img/EuropeEst.webp?url";
+import Orient from "../assets/img/Orient.webp?url";
+import { allRecettesSorted } from "../../backend/backend.mjs";
+import CarouselRecette from "../components/Carousel_recette.astro";
+import Arrow from "../assets/icons/arrow.svg?url";
+import Button from "../components/Button_vide.astro";
+
+const rec = await allRecettesSorted();
 ---
 
 <Layout>
-    <Hero title="RETROUVEZ LA CUISINE DU MONDE CHEZ VOUS !"/>
-    <img src={img} alt="RETROUVEZ LA CUISINE DU MONDE CHEZ VOUS !">
-    <div class="mt-250"></div>
-</Layout>
+    <Hero title="RETROUVEZ LA CUISINE DU MONDE CHEZ VOUS !" />
+    <img
+        class="hidden lg:block"
+        src={img}
+        alt="RETROUVEZ LA CUISINE DU MONDE CHEZ VOUS !"
+    />
+    <img
+        class="w-full object-cover lg:hidden"
+        src={img_mobile}
+        alt="RETROUVEZ LA CUISINE DU MONDE CHEZ VOUS !"
+    />
+    <div class="relative flex flex-col mt-20 lg:mt-30 mb-20 space-y-20">
+        <h1 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
+            Qu'est ce que savoury road ?
+        </h1>
+        <div class="flex justify-center">
+            <p class="font-montserrat text-2lg lg:text-xl w-8/10 lg:w-6/10">
+                Chez <span class="font-bold">Savoury Road</span>, nous savons à
+                quel point il est difficile de retrouver les produits de son
+                pays lorsqu'on vit à l'étranger. C'est pourquoi <span
+                    class="font-bold">nous sélectionnons</span
+                > pour vous des produits alimentaires <span class="font-bold"
+                    >authentiques</span
+                > venus <span class="font-bold"
+                    >d'Afrique, d'Asie, d'Amérique Latine, d'Europe et d'Orient</span
+                >. Que ce soit pour cuisiner un plat traditionnel ou simplement
+                retrouver <span class="font-bold">un goût familier</span>, nous
+                avons ce qu'il vous faut. Notre catalogue évolue constamment
+                pour répondre aux besoins de notre communauté et vous offrir
+                toujours plus de choix.
+            </p>
+        </div>
+        <div class="hidden lg:block relative flex flex-col mt-10 space-y-20">
+            <h2 class="text-center font-lilitaone text-4xl uppercase">
+                Choisis ta destination
+            </h2>
+            <div class="grid grid-cols-3 mx-50 space-y-30">
+                <div>
+                    <img
+                        src={AfriqueNord}
+                        class="mx-auto h-65"
+                        alt="Afrique du Nord"
+                    />
+                    <a
+                        href="../produits"
+                        class="font-lilitaone border-
+                    border-yellow text-yellow uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]"
+                        >afrique du nord</a
+                    >
+                </div>
+                <div>
+                    <img
+                        src={AmeriqueCentrale}
+                        class="mx-auto h-65"
+                        alt="Amerique Centrale"
+                    />
+                    <a
+                        href="../produits"
+                        class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all border-orange text-orange cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]"
+                    >
+                        amerique centrale</a
+                    >
+                </div>
+                <div>
+                    <img
+                        src={AmeriqueLatine}
+                        class="mx-auto h-65"
+                        alt="Amerique Latine"
+                    />
+                    <a
+                        href="../produits"
+                        class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer border-red text-red mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]"
+                        >amerique latine</a
+                    >
+                </div>
+                <div>
+                    <img
+                        src={AsieEst}
+                        class="mx-auto h-65"
+                        alt="Asie de l'Est"
+                    />
+                    <a
+                        href="../produits"
+                        class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer border-pink text-pink mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]"
+                    >
+                        asie du sud est</a
+                    >
+                </div>
+                <div>
+                    <img
+                        src={EuropeEst}
+                        class="mx-auto h-65"
+                        alt="Europe de l'Est"
+                    />
+                    <a
+                        href="../produits"
+                        class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto border-purple text-purple rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px]"
+                        >europe de l'est</a
+                    >
+                </div>
+                <div>
+                    <img src={Orient} class="mx-auto h-65" alt="Orient" />
+                    <a
+                        href="../produits"
+                        class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-green text-green border-3 flex justify-center items-center h-[50px] w-[200px]"
+                        >moyen orient</a
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="relative flex flex-col mt-10 lg:mt-5 mb-20 space-y-20">
+            <h1 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
+                QUELQUE RECETTES TRADITIONELLES
+            </h1>
+            <div class="flex justify-center">
+                <p class="font-montserrat text-2lg lg:text-xl w-8/10 lg:w-6/10">
+                    Découvrez des <span class="font-bold"
+                        >recettes authentiques</span
+                    >, soigneusement sélectionnées pour vous inspirer en
+                    cuisine. Idéales pour <span class="font-bold"
+                        >varier vos repas</span
+                    >, elles vous invitent à <span class="font-bold"
+                        >tester de nouvelles saveurs et techniques</span
+                    >.
+                </p>
+            </div>
+        </div>
+        <div class="relative w-full">
+            <div
+                id="carousel"
+                class="flex overflow-x-auto gap-4 scroll-smooth no-scrollbar px-8"
+            >
+                {rec.slice(0,5).map((rec) => <CarouselRecette {...rec} />)}
+            </div>
+            <div class="flex justify-center mb-10 gap-10 mt-7">
+                <button
+                    id="carousel-left"
+                    class="z-10 bg-white rounded-full shadow px-2 py-1"
+                    aria-label="Précédent"
+                >
+                    <img src={Arrow} class="rotate-90 scale-30" alt="bouton précédent" />
+                </button>
+                <button
+                    id="carousel-right"
+                    class="z-10 bg-white/80 rounded-full shadow px-2 py-1"
+                    aria-label="Suivant"
+                >
+                <img src={Arrow} class="-rotate-90 scale-30" alt="bouton précédent" />
+                </button>
+            </div>
+            <Button
+                text="Toutes les recettes"
+                link="/recettes"
+            />
+        </div>
 
-<script>
-    const toggle = document.querySelector("#menu-btn");
-    const nav = document.querySelector("#menu");
-    const page = document.body;
-    const header = document.querySelector("#header");
+    </div>
 
-    if (toggle && nav) {
-        toggle.addEventListener("click", () => {
-            const isOpen = toggle.ariaExpanded === "true";
-            const isClosed = !isOpen;
-            // Mise à jour des attributs ARIA pour accessibilité
-            toggle.ariaExpanded = String(isClosed);
-            nav.ariaHidden = String(isOpen);
-            page.classList.toggle("noscroll", isClosed);
-        });
-    }
-
-    let lastScrollY = window.scrollY;
-
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > lastScrollY) {
-            header.style.transform = "translateY(-100%)";
-        } else {
-            header.style.transform = "translateY(0)";
+    <style>
+        .no-scrollbar {
+            scrollbar-width: none;
         }
-        lastScrollY = window.scrollY;
-    });
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 
-    const noscroll = document.createElement("style");
-    noscroll.innerHTML = "body.noscroll { overflow: hidden; }";
-    document.head.appendChild(noscroll);
-</script>
+    <script>
+        const toggle = document.querySelector("#menu-btn");
+        const nav = document.querySelector("#menu");
+        const page = document.body;
+        const header = document.querySelector("#header");
+        const carousel = document.getElementById("carousel");
+        const btnLeft = document.getElementById("carousel-left");
+        const btnRight = document.getElementById("carousel-right");
+        function getScrollStep() {
+            // On prend la largeur réelle d'une card + le gap (16px si gap-4)
+            const card = carousel?.children[0];
+            if (!card) return 200;
+            const style = window.getComputedStyle(carousel);
+            const gap = parseInt(style.gap) || 16;
+            return card.offsetWidth + gap;
+        }
+
+        btnLeft?.addEventListener("click", () => {
+            carousel.scrollBy({ left: -getScrollStep(), behavior: "smooth" });
+        });
+        btnRight?.addEventListener("click", () => {
+            carousel.scrollBy({ left: getScrollStep(), behavior: "smooth" });
+        });
+
+        if (toggle && nav) {
+            toggle.addEventListener("click", () => {
+                const isOpen = toggle.ariaExpanded === "true";
+                const isClosed = !isOpen;
+                // Mise à jour des attributs ARIA pour accessibilité
+                toggle.ariaExpanded = String(isClosed);
+                nav.ariaHidden = String(isOpen);
+                page.classList.toggle("noscroll", isClosed);
+            });
+        }
+
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > lastScrollY) {
+                header.style.transform = "translateY(-100%)";
+            } else {
+                header.style.transform = "translateY(0)";
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        const noscroll = document.createElement("style");
+        noscroll.innerHTML = "body.noscroll { overflow: hidden; }";
+        document.head.appendChild(noscroll);
+    </script>
+</Layout>

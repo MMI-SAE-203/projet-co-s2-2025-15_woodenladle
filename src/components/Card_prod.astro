@@ -23,11 +23,6 @@ import Button2 from "../components/Button_vide.astro";
         <div class="p-4">
                 <p class="font-lilitaone text-xl pb-5 mb-2">{prod.Nom}</p>
                 <div class="flex flex-col space-y-3">
-                    <Button 
-                        text="Où en trouver ? ⛓️‍💥"
-                        link={prod.Site}
-                        {...prod}
-                    />
                     <Button2 
                         text="Plus d'infos"
                         link={`/produits/${prod.id}`}
