@@ -8,16 +8,16 @@ import AmeriqueCentrale from "../assets/img/AmeriqueCentrale.webp?url";
 import AmeriqueLatine from "../assets/img/AmeriqueLatine.webp?url";
 import AsieEst from "../assets/img/AsieEst.webp?url";
 import EuropeEst from "../assets/img/EuropeEst.webp?url";
-// import Mathis from "../assets/img/mathis.webp?url";
-// import Valentine from "../assets/img/valentine.webp?url";
-// import Ethan from "../assets/img/ethan.webp?url";
 import Orient from "../assets/img/Orient.webp?url";
-import { allRecettesSorted } from "../../backend/backend.mjs";
+import { allRecettesSorted, allEquipe } from "../../backend/backend.mjs";
 import CarouselRecette from "../components/Carousel_recette.astro";
 import Arrow from "../assets/icons/arrow.svg?url";
 import Button from "../components/Button_vide.astro";
+import CardEqupie from "../components/Card_equpie.astro";
+
 
 const rec = await allRecettesSorted();
+const equ = await allEquipe();
 ---
 
 <Layout>
@@ -230,32 +230,9 @@ const rec = await allRecettesSorted();
             <h2 class="mx-auto font-lilitaone text-2xl lg:text-4xl uppercase">
                 Notre équipe
             </h2>
-            <!-- <div class="flex flex-col lg:grid lg:grid-cols-3 font-montserrat space-y-20">
-                <div class="space-y-5 flex flex-col items-center">
-                    <img src={Valentine} alt="Valentine GUILLOT" class="w-40 h-40">
-                    <div class="space-y-2 text-center">
-                        <p class="">Valentine GUILLOT</p>
-                        <p class="text-pink font-bold text-xl">Designeuse</p>
-                        <p>valentine.guillot@edu.univ-fcomte.fr</p>
-                    </div>
-                </div>
-                <div class="space-y-5 flex flex-col items-center">
-                    <img src={Mathis} alt="Mathis GUELLATI" class="w-40 h-40">
-                    <div class="space-y-2 text-center">
-                        <p class="">Mathis GUELLATI</p>
-                        <p class="text-pink font-bold text-xl">Développeur</p>
-                        <p>mathis.guellati@edu.univ-fcomte.fr</p>
-                    </div>
-                </div>
-                <div class="space-y-5 flex flex-col items-center">
-                    <img src={Ethan} alt="Ethan HENNEQUIN-DE-MEYER" class="w-40 h-40">
-                    <div class="space-y-2 text-center">
-                        <p class="">Ethan HENNEQUIN-DE-MEYER</p>
-                        <p class="text-pink font-bold text-xl">Communicant</p>
-                        <p class="w-2/3 mx-auto">ethan.hennequin--de_meyer@edu.univ-fcomte.fr</p>
-                    </div>
-                </div>
-            </div> -->
+            <div class="flex flex-col lg:grid lg:grid-cols-3 font-montserrat space-y-20">
+                {equ.map((equ) => <CardEqupie {...equ} />)}
+            </div>
         </div>
     </div>
 

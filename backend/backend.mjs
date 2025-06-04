@@ -233,3 +233,19 @@ export async function addMessage({ nom, email, message }) {
         throw error;
     }
 }
+
+export async function allEquipe() {
+    try {
+        let record = await pb.collection('Equipe').getFullList({
+            sort: 'prenom',
+        });
+        record = record.map((equipe) => {
+            equipe.img = pb.files.getURL(equipe, equipe.image);
+            return equipe;
+        });
+        return record;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des membres de l’équipe', error);
+        return [];
+    }
+}

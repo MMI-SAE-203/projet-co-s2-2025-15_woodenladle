@@ -1,0 +1,12 @@
+---
+const {...equ} = Astro.props;
+---
+
+<div class="space-y-5 flex flex-col items-center">
+    <img src={equ.img} alt="Valentine GUILLOT" class="w-40 h-40">
+    <div class="space-y-2 text-center">
+        <p class="">{equ.prenom} {equ.nom}</p>
+        <p class="text-pink font-bold text-xl capitalize">{equ.role}</p>
+        <p>{equ.e_mail}</p>
+    </div>
+</div>
