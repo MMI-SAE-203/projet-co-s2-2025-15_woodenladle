@@ -3,7 +3,6 @@ import Layout from "../../layouts/Layout.astro";
 import {
     getOneRecette,
     allRecettesSorted,
-    allEtapeByRecette,
 } from "../../../backend/backend.mjs";
 
 export async function getStaticPaths() {
@@ -18,14 +17,11 @@ export async function getStaticPaths() {
 const { id } = Astro.params;
 const rec = await getOneRecette(id);
 
-// Récupère les étapes expandues (soit tableau, soit objet selon ton schéma PB)
 let safeEtapes = {};
 if (rec && rec.expand && rec.expand.etapes) {
     if (Array.isArray(rec.expand.etapes) && rec.expand.etapes.length > 0) {
-        // Si relation multiple, prends le premier record (si besoin tu peux boucler)
         safeEtapes = rec.expand.etapes[0];
     } else if (typeof rec.expand.etapes === "object") {
-        // Si single relation
         safeEtapes = rec.expand.etapes;
     }
 }

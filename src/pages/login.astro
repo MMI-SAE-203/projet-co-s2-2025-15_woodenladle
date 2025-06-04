@@ -32,7 +32,6 @@ if (Astro.request.method === "POST") {
         }
     }
 
-    // Suppression de compte
     if (formData.get("action") === "delete-account") {
         try {
             await deleteUser(formData.get("id"));
@@ -116,13 +115,11 @@ if (Astro.request.method === "POST") {
             const deleteAccountForm = document.getElementById("delete-account-form");
             const deleteUserId = document.getElementById("delete-user-id");
 
-            // Formulaire de maj du profil
             const profileForm = document.getElementById("profile-form");
             const pseudoInput = document.getElementById("pseudo-input");
             const profileUserId = document.getElementById("profile-user-id");
 
             if (user?.email) {
-                // Affichage connecté
                 loginSection.classList.add("hidden");
                 connectedSection.classList.remove("hidden");
                 loginTitle.classList.add("hidden");
@@ -139,7 +136,6 @@ if (Astro.request.method === "POST") {
                     profileUserId.value = user.id;
                 }
 
-                // Déconnexion
                 logoutBtn.addEventListener("click", () => {
                     localStorage.removeItem("user");
                     window.location.reload();

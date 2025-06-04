@@ -103,7 +103,6 @@ import loginIconUrl from "../assets/icons/login.svg?url";
 </header>
 
 <script is:browser>
-    // Variables globales
     const header = document.getElementById("header");
     const menuBtn = document.getElementById("menu-btn");
     const menuMobile = document.getElementById("menu-mobile");
@@ -154,7 +153,6 @@ import loginIconUrl from "../assets/icons/login.svg?url";
 
     window.addEventListener("resize", () => {
         if (window.innerWidth >= 1024) {
-            // Desktop: fermer le menu mobile si ouvert
             if (menuBtn.getAttribute("aria-expanded") === "true") {
                 toggleMobileMenu();
             }
