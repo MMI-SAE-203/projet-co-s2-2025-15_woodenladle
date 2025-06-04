@@ -1,0 +1,169 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { ajouterRecette, ajouterEtapeByRecette, lierEtapesARecette } from "../../../backend/backend.mjs";
+let success = "";
+let error = "";
+
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    try {
+        const recette = await ajouterRecette({
+            nom: formData.get("Nom"),
+            description: formData.get("Description"),
+            image: formData.get("Image"),
+            nbr_personne: formData.get("nbr_personne"),
+            region: formData.get("Region"),
+            ingredients: formData.get("ingredients"),
+        });
+
+        const etapesRecord = await ajouterEtapeByRecette({
+            Etape_1: formData.get("Etape_1"),
+            Etape_2: formData.get("Etape_2"),
+            Etape_3: formData.get("Etape_3"),
+            Etape_4: formData.get("Etape_4"),
+            Etape_5: formData.get("Etape_5"),
+            Etape_6: formData.get("Etape_6"),
+            Etape_7: formData.get("Etape_7"),
+            Etape_8: formData.get("Etape_8"),
+            Etape_9: formData.get("Etape_9"),
+            Etape_10: formData.get("Etape_10"),
+            recette: recette.id,
+        });
+
+        await lierEtapesARecette(recette.id, etapesRecord.id);
+
+        return Astro.redirect("/recettes", 303);
+    } catch (e) {
+        error = "Erreur lors de l'ajout de la recette et des étapes.";
+    }
+}
+
+const url = new URL(Astro.request.url);
+if (url.searchParams.get("success")) {
+    success = "Recette ajoutée avec succès !";
+}
+---
+
+<Layout>
+    <div
+    id="login-title"
+    class="w-full h-[250px] bg-gray-100 p-0 rounded-b-3xl flex items-center justify-center border-b"
+    >
+        <h1
+            class="text-[80px] font-lilitaone pt-20 text-white [-webkit-text-stroke:1px_black]"
+        >
+            Ajouter une recette
+        </h1>
+    </div>
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="flex flex-col gap-4 mt-30"
+    >
+    <div class="flex justify-between mx-50">
+        <div class="w-2/5 space-y-6">
+            <label class="flex flex-col font-lilitaone">
+                Nom de la recette
+                <input name="Nom" required class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-lilitaone">
+                Région
+                <select
+                    name="Region"
+                    required
+                    class="w-3/4 px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat"
+                >
+                    <option value="" disabled selected>Sélectionnez une région</option>
+                    <option value="Afrique du Nord">Afrique du Nord</option>
+                    <option value="Afrique Central">Afrique Central</option>
+                    <option value="Europe">Europe Est</option>
+                    <option value="Amerique Latine">Amerique Latine</option>
+                    <option value="Asie du Sud Est">Asie du Sud Est</option>
+                </select>
+            </label>
+            <label class="flex flex-col font-lilitaone">
+                Description
+                <textarea
+                    name="Description"
+                    required
+                    class="bg-gray-100 border-2 rounded-2xl h-60 font-montserrat py-4"></textarea>
+            </label>
+            <label class="flex flex-col font-lilitaone">
+                Ingrédients
+                <textarea name="ingredients" class="bg-gray-100 border-2 rounded-2xl h-70 font-montserrat py-4"></textarea>
+            </label>
+            <label class="flex flex-col font-lilitaone">
+                Image
+                <input
+                    type="file"
+                    name="Image"
+                    accept="image/*"
+                    class=" w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat"
+                />
+        </div>
+        <div class="w-2/5 space-y-6">
+            <label class="flex flex-col font-lilitaone">
+                Nombre de personnes
+                <input
+                type="number"
+                min="1"
+                name="nbr_personne"
+                required
+                class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat"
+                />
+            </label>
+            </label>
+            <p class="flex flex-col font-lilitaone">Étapes de la recette</p>
+            <label class="flex flex-col font-montserrat">
+                Étape 1
+                <input name="Etape_1" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 2
+                <input name="Etape_2" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 3
+                <input name="Etape_3" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 4
+                <input name="Etape_4" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 5
+                <input name="Etape_5" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 6
+                <input name="Etape_6" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 7
+                <input name="Etape_7" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 8
+                <input name="Etape_8" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 9
+                <input name="Etape_9" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+            <label class="flex flex-col font-montserrat">
+                Étape 10
+                <input name="Etape_10" class="w-full px-4 py-1 border-2 rounded-full bg-gray-100 font-montserrat" />
+            </label>
+        </div>
+    </div>
+        
+
+
+
+        <button type="submit" class="font-lilitaone uppercase text-lg hover:w-[250px] transition-all cursor-pointer mx-auto rounded-xl border-3 flex justify-center items-center h-[50px] w-[200px] my-10">
+            Ajouter la recette
+        </button>
+    </form>
+    {success && <div class="text-green-700">{success}</div>}
+    {error && <div class="text-red-700">{error}</div>}
+</Layout>
