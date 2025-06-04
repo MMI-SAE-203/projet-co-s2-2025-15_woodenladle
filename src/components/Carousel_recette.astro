@@ -8,6 +8,6 @@ const { ...rec } = Astro.props;
         <p class="font-lilitaone text-xs lg:text-xl text-black">{rec.Nom}</p>
     </div>
     <div class="absolute top-2 right-2 bg-white px-2 py-0.5 rounded">
-        <p class="font-montserrat text-xs text-black"> pour : {rec.nbr_personne} personnes</p>
+        <p class="font-montserrat text-xs text-black"> {rec.nbr_personne} personne{rec.nbr_personne > 1 ? 's' : ''}</p>
     </div>
 </div>
